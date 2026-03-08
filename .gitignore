@@ -42,3 +42,6 @@ bun-debug.log
 
 # TypeScript
 *.tsbuildinfo
+
+.dev.vars*
+!.dev.vars.example
