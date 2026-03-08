@@ -1,0 +1,51 @@
+# CryptForge — Developer Security Toolkit by DevrimSoft
+
+> CryptForge is a free, fully client-side developer security toolkit. All cryptographic operations run in the browser using the Web Crypto API. No data is sent to any server.
+
+## Product Info
+
+- **Name:** CryptForge
+- **URL:** https://randompassword.devrimsoft.com
+- **Developer:** DevrimSoft (https://devrimsoft.com)
+- **Contact:** info@devrimsoft.com.tr
+- **Type:** Web Application (Static, Single Page)
+- **Cost:** Free
+- **Privacy:** Zero data collection, no backend, no cookies, no tracking
+
+## Tools
+
+### Password Generator
+Generate cryptographically secure passwords with configurable length (4-250 characters), uppercase/lowercase letters, numbers, symbols, custom symbol sets, and option to exclude ambiguous characters (0, O, I, l, 1). Uses crypto.getRandomValues() with Fisher-Yates shuffle.
+
+### Password Strength Checker
+Analyze password strength with entropy calculation (bits), charset size estimation, estimated crack time, and a 0-4 score (Very Weak to Very Strong). Detects patterns, repetition, and common weaknesses.
+
+### JWT Token Generator
+Generate JSON Web Tokens with HS256, HS384, or HS512 algorithms. Supports custom header and payload JSON, configurable expiry, and one-click quick generation with random secrets.
+
+### Hash Generator
+Compute cryptographic hashes in real-time: MD5, SHA-1, SHA-256, SHA-512. Uses Web Crypto API's crypto.subtle for SHA variants and a built-in MD5 implementation for browser compatibility.
+
+### Token Generator
+Generate various security tokens:
+- UUID v4 (RFC 4122 compliant)
+- CSRF tokens (32 bytes, hex encoded)
+- API keys (sk_ prefix + 24 random bytes, base64)
+- Hex tokens (configurable byte length)
+- Base64 tokens (configurable byte length)
+- Secret keys (256-bit, base64)
+
+## Technical Details
+
+- **Framework:** Astro 5 (static site generation)
+- **Language:** TypeScript
+- **Crypto:** Web Crypto API (crypto.getRandomValues(), crypto.subtle)
+- **Languages:** 6 (Turkish, English, Russian, Ukrainian, German, Spanish)
+- **Themes:** Dark and Light mode
+- **Deployment:** Cloudflare Workers
+
+## Links
+
+- Main: https://randompassword.devrimsoft.com
+- DevrimSoft: https://devrimsoft.com
+- Sitemap: https://randompassword.devrimsoft.com/sitemap-index.xml

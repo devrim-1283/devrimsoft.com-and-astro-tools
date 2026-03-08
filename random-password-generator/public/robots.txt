@@ -1,0 +1,24 @@
+# CryptForge by DevrimSoft — https://randompassword.devrimsoft.com
+
+User-agent: *
+Allow: /
+Disallow: /cdn-cgi/
+
+# Sitemap
+Sitemap: https://randompassword.devrimsoft.com/sitemap-index.xml
+
+# LLM / AI Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
