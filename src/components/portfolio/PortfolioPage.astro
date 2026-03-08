@@ -1,0 +1,325 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { useTranslations } from '@/i18n/utils'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHeader from '@/components/shared/PageHeader.astro'
+import ScrollReveal from '@/components/shared/ScrollReveal.astro'
+import CTASection from '@/components/home/CTASection.astro'
+
+interface Props {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+
+type Category = 'all' | 'web' | 'mobile' | 'api' | 'cloud'
+
+interface Project {
+  titleKey: string
+  descKey: string
+  clientKey: string
+  category: Category
+  technologies: string[]
+  year: string
+  featured: boolean
+  gradient: string
+  icon: string
+}
+
+const categories: Array<{ key: Category; label: string; icon: string }> = [
+  { key: 'all', label: t('portfolio.filterAll'), icon: 'fas fa-layer-group' },
+  { key: 'web', label: t('portfolio.filterWeb'), icon: 'fas fa-globe' },
+  { key: 'mobile', label: t('portfolio.filterMobile'), icon: 'fas fa-mobile-screen' },
+  { key: 'api', label: t('portfolio.filterAPI'), icon: 'fas fa-code' },
+  { key: 'cloud', label: t('portfolio.filterCloud'), icon: 'fas fa-cloud' },
+]
+
+const portfolioStats = [
+  { value: '50+', icon: 'fas fa-folder-open', labelKey: 'projects' },
+  { value: '30+', icon: 'fas fa-users', labelKey: 'clients' },
+  { value: '15+', icon: 'fas fa-microchip', labelKey: 'technologies' },
+  { value: '6+', icon: 'fas fa-industry', labelKey: 'industries' },
+]
+
+const statLabels: Record<string, Record<string, string>> = {
+  projects: {
+    tr: 'Tamamlanan Proje', en: 'Completed Projects', ru: 'Завершённых проектов',
+    uk: 'Завершених проєктiв', de: 'Abgeschlossene Projekte', es: 'Proyectos Completados', fr: 'Projets Realises',
+  },
+  clients: {
+    tr: 'Mutlu Musteri', en: 'Happy Clients', ru: 'Довольных клиентов',
+    uk: 'Задоволених клiєнтiв', de: 'Zufriedene Kunden', es: 'Clientes Satisfechos', fr: 'Clients Satisfaits',
+  },
+  technologies: {
+    tr: 'Teknoloji', en: 'Technologies', ru: 'Технологий',
+    uk: 'Технологiй', de: 'Technologien', es: 'Tecnologias', fr: 'Technologies',
+  },
+  industries: {
+    tr: 'Sektor', en: 'Industries', ru: 'Отраслей',
+    uk: 'Галузей', de: 'Branchen', es: 'Industrias', fr: 'Secteurs',
+  },
+}
+
+const projects: Project[] = [
+  {
+    titleKey: 'portfolio.project1.title',
+    descKey: 'portfolio.project1.desc',
+    clientKey: 'portfolio.project1.client',
+    category: 'web',
+    technologies: ['PHP', 'PostgreSQL', 'Redis'],
+    year: '2025',
+    featured: true,
+    gradient: 'from-blue-600 to-indigo-700',
+    icon: 'fas fa-building-columns',
+  },
+  {
+    titleKey: 'portfolio.project2.title',
+    descKey: 'portfolio.project2.desc',
+    clientKey: 'portfolio.project2.client',
+    category: 'web',
+    technologies: ['PHP', 'PostgreSQL'],
+    year: '2025',
+    featured: false,
+    gradient: 'from-rose-500 to-pink-600',
+    icon: 'fas fa-brain',
+  },
+  {
+    titleKey: 'portfolio.project3.title',
+    descKey: 'portfolio.project3.desc',
+    clientKey: 'portfolio.project3.client',
+    category: 'web',
+    technologies: ['PHP', 'PostgreSQL'],
+    year: '2025',
+    featured: false,
+    gradient: 'from-emerald-500 to-teal-600',
+    icon: 'fas fa-apple-whole',
+  },
+  {
+    titleKey: 'portfolio.project4.title',
+    descKey: 'portfolio.project4.desc',
+    clientKey: 'portfolio.project4.client',
+    category: 'web',
+    technologies: ['React', 'Go', 'PostgreSQL'],
+    year: '2025',
+    featured: false,
+    gradient: 'from-amber-600 to-orange-700',
+    icon: 'fas fa-industry',
+  },
+  {
+    titleKey: 'portfolio.project5.title',
+    descKey: 'portfolio.project5.desc',
+    clientKey: 'portfolio.project5.client',
+    category: 'web',
+    technologies: ['Astro', 'Tailwind CSS', 'JavaScript'],
+    year: '2025',
+    featured: true,
+    gradient: 'from-sky-600 to-blue-700',
+    icon: 'fas fa-rocket',
+  },
+  {
+    titleKey: 'portfolio.project6.title',
+    descKey: 'portfolio.project6.desc',
+    clientKey: 'portfolio.project6.client',
+    category: 'web',
+    technologies: ['React', 'Node.js', 'PostgreSQL'],
+    year: '2025',
+    featured: true,
+    gradient: 'from-violet-600 to-purple-700',
+    icon: 'fas fa-file-contract',
+  },
+  {
+    titleKey: 'portfolio.project7.title',
+    descKey: 'portfolio.project7.desc',
+    clientKey: 'portfolio.project7.client',
+    category: 'web',
+    technologies: ['React', 'Go', 'PostgreSQL'],
+    year: '2025',
+    featured: false,
+    gradient: 'from-cyan-600 to-teal-700',
+    icon: 'fas fa-file-signature',
+  },
+  {
+    titleKey: 'portfolio.project8.title',
+    descKey: 'portfolio.project8.desc',
+    clientKey: 'portfolio.project8.client',
+    category: 'api',
+    technologies: ['React', 'Go', 'PostgreSQL', 'Redis'],
+    year: '2025',
+    featured: true,
+    gradient: 'from-slate-700 to-zinc-800',
+    icon: 'fas fa-database',
+  },
+]
+---
+
+<BaseLayout
+  title={t('portfolio.title')}
+  description={t('portfolio.subtitle')}
+  lang={lang}
+  currentPage="portfolio"
+>
+  <PageHeader title={t('portfolio.title')} subtitle={t('portfolio.subtitle')} />
+
+  <!-- Filter & Projects -->
+  <section class="section-padding bg-white">
+    <div class="container-wide">
+      <!-- Category Filter -->
+      <ScrollReveal>
+        <div class="flex flex-wrap items-center justify-center gap-3" id="portfolio-filters">
+          {categories.map((cat) => (
+            <button
+              type="button"
+              class:list={[
+                'portfolio-filter inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-medium transition-all duration-200',
+                cat.key === 'all'
+                  ? 'bg-navy-800 text-white shadow-sm'
+                  : 'border border-navy-200 bg-white text-navy-600 hover:border-navy-300 hover:bg-navy-50',
+              ]}
+              data-category={cat.key}
+            >
+              <i class:list={[cat.icon, 'text-xs']}></i>
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </ScrollReveal>
+
+      <!-- Projects Grid -->
+      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3" id="portfolio-grid">
+        {projects.map((project) => (
+          <ScrollReveal>
+            <article
+              class="portfolio-card group overflow-hidden rounded-2xl border border-navy-100 bg-white transition-all duration-300 hover:border-navy-200 hover:shadow-xl hover:shadow-navy-100/50 hover:-translate-y-1"
+              data-category={project.category}
+            >
+              {/* Project Visual Header */}
+              <div class="relative flex h-48 items-center justify-center">
+                <div class="text-white/80 transition-transform duration-500 group-hover:scale-110">
+                  <i class:list={[project.icon, 'text-4xl']}></i>
+                </div>
+                {project.featured && (
+                  <span class="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                    <i class="fas fa-star text-amber-300"></i>
+                    Featured
+                  </span>
+                )}
+                <div class="absolute bottom-3 left-3">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                    <i class="far fa-calendar text-[10px]"></i>
+                    {project.year}
+                  </span>
+                </div>
+              </div>
+
+              {/* Project Info */}
+              <div class="p-6">
+                <div class="mb-3 flex items-center gap-2 text-xs text-navy-500">
+                  <i class="fas fa-building text-[10px] text-navy-400"></i>
+                  <span>{t(project.clientKey)}</span>
+                </div>
+
+                <h3 class="font-display text-lg font-bold text-navy-900 transition-colors group-hover:text-accent-600">
+                  {t(project.titleKey)}
+                </h3>
+
+                <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-navy-600">
+                  {t(project.descKey)}
+                </p>
+
+                {/* Technologies */}
+                <div class="mt-4 flex flex-wrap gap-1.5">
+                  {project.technologies.map((tech) => (
+                    <span class="rounded-lg bg-navy-50 px-2.5 py-1 text-xs font-medium text-navy-700">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Action */}
+                <div class="mt-5 border-t border-navy-50 pt-4">
+                  <button
+                    type="button"
+                    class="inline-flex items-center gap-2 text-sm font-semibold text-navy-800 transition-colors hover:text-accent-600"
+                  >
+                    {t('portfolio.viewProject')}
+                    <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </ScrollReveal>
+        ))}
+      </div>
+
+      <!-- No projects message -->
+      <div id="portfolio-empty" class="mt-12 hidden text-center">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-navy-50">
+          <i class="fas fa-folder-open text-2xl text-navy-300"></i>
+        </div>
+        <p class="mt-4 text-lg text-navy-500">{t('portfolio.noProjects')}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="relative overflow-hidden bg-navy-950 py-16">
+    <div class="absolute inset-0 text-white/[0.02] dot-pattern"></div>
+    <div class="container-wide relative">
+      <div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
+        {portfolioStats.map((stat) => (
+          <ScrollReveal class="text-center">
+            <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-accent-500/10">
+              <i class:list={[stat.icon, 'text-lg text-accent-400']}></i>
+            </div>
+            <div class="font-display text-3xl font-bold text-white">{stat.value}</div>
+            <div class="mt-1 text-sm text-navy-400">{statLabels[stat.labelKey][lang]}</div>
+          </ScrollReveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection lang={lang} />
+</BaseLayout>
+
+<script>
+  function initPortfolioFilter(): void {
+    const filters = document.querySelectorAll<HTMLButtonElement>('.portfolio-filter')
+    const cards = document.querySelectorAll<HTMLElement>('.portfolio-card')
+    const emptyState = document.getElementById('portfolio-empty')
+
+    filters.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const category = btn.dataset.category
+
+        filters.forEach((f) => {
+          f.classList.remove('bg-navy-800', 'text-white', 'shadow-sm')
+          f.classList.add('border', 'border-navy-200', 'bg-white', 'text-navy-600', 'hover:border-navy-300', 'hover:bg-navy-50')
+        })
+        btn.classList.remove('border', 'border-navy-200', 'bg-white', 'text-navy-600', 'hover:border-navy-300', 'hover:bg-navy-50')
+        btn.classList.add('bg-navy-800', 'text-white', 'shadow-sm')
+
+        let visibleCount = 0
+        cards.forEach((card) => {
+          const parent = card.closest('.reveal') as HTMLElement | null
+          if (!parent) return
+
+          if (category === 'all' || card.dataset.category === category) {
+            parent.style.display = ''
+            visibleCount++
+          } else {
+            parent.style.display = 'none'
+          }
+        })
+
+        if (emptyState) {
+          emptyState.classList.toggle('hidden', visibleCount > 0)
+        }
+      })
+    })
+  }
+
+  initPortfolioFilter()
+  document.addEventListener('astro:after-swap', initPortfolioFilter)
+</script>

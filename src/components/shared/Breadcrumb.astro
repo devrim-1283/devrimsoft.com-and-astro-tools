@@ -1,0 +1,41 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { useTranslations, getLocalizedPath } from '@/i18n/utils'
+
+interface BreadcrumbItem {
+  label: string
+  href?: string
+}
+
+interface Props {
+  lang: Locale
+  items: BreadcrumbItem[]
+}
+
+const { lang, items } = Astro.props
+const t = useTranslations(lang)
+---
+
+<nav aria-label="Breadcrumb" class="container-wide py-4">
+  <ol class="flex items-center gap-2 text-sm text-navy-500" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href={getLocalizedPath(lang, 'home')} itemprop="item" class="hover:text-navy-800 transition-colors">
+        <span itemprop="name">{t('nav.home')}</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    {items.map((item, index) => (
+      <li class="flex items-center gap-2" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span class="text-navy-300">/</span>
+        {item.href ? (
+          <a href={item.href} itemprop="item" class="hover:text-navy-800 transition-colors">
+            <span itemprop="name">{item.label}</span>
+          </a>
+        ) : (
+          <span itemprop="name" class="text-navy-800 font-medium">{item.label}</span>
+        )}
+        <meta itemprop="position" content={String(index + 2)} />
+      </li>
+    ))}
+  </ol>
+</nav>

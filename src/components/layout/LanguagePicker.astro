@@ -1,0 +1,53 @@
+---
+import { LOCALES, type Locale } from '@/i18n/locales'
+
+interface Props {
+  lang: Locale
+  currentPage: string
+}
+
+const { lang, currentPage } = Astro.props
+const localeEntries = Object.entries(LOCALES) as [Locale, (typeof LOCALES)[Locale]][]
+---
+
+<details class="lang-picker relative">
+  <summary
+    class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl transition-colors hover:bg-navy-50 active:bg-navy-100"
+    aria-label="Select language"
+  >
+    <img
+      src={`https://flagcdn.com/${LOCALES[lang].flag}.svg`}
+      alt={LOCALES[lang].nativeName}
+      width="24"
+      height="18"
+      class="rounded-sm object-cover"
+      loading="lazy"
+    />
+  </summary>
+
+  <ul
+    class="absolute right-0 z-50 mt-2 w-44 rounded-xl border border-navy-100 bg-white py-1.5 shadow-xl"
+    role="listbox"
+  >
+    {localeEntries.map(([code, locale]) => (
+      <li role="option" aria-selected={code === lang}>
+        <a
+          href={`/${code}/`}
+          class={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-navy-50 ${
+            code === lang ? 'bg-navy-50 font-semibold text-navy-800' : 'text-navy-600'
+          }`}
+        >
+          <img
+            src={`https://flagcdn.com/${locale.flag}.svg`}
+            alt={locale.nativeName}
+            width="20"
+            height="15"
+            class="rounded-sm object-cover"
+            loading="lazy"
+          />
+          {locale.nativeName}
+        </a>
+      </li>
+    ))}
+  </ul>
+</details>

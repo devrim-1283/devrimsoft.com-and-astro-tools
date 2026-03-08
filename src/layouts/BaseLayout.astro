@@ -1,0 +1,80 @@
+---
+import type { Locale } from '@/i18n/locales'
+import SEOHead from '@/components/shared/SEOHead.astro'
+import Header from '@/components/layout/Header.astro'
+import Footer from '@/components/layout/Footer.astro'
+import '@/styles/global.css'
+
+interface Props {
+  title: string
+  description: string
+  lang: Locale
+  currentPage: string
+  ogImage?: string
+  noindex?: boolean
+  customAlternateLinks?: Array<{ lang: Locale; href: string }>
+}
+
+const { title, description, lang, currentPage, ogImage, noindex, customAlternateLinks } = Astro.props
+---
+
+<!doctype html>
+<html lang={lang} dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <SEOHead
+      title={`${title} | DevrimSoft`}
+      description={description}
+      lang={lang}
+      currentPage={currentPage}
+      ogImage={ogImage}
+      noindex={noindex}
+      customAlternateLinks={customAlternateLinks}
+    />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header lang={lang} currentPage={currentPage} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+
+    <!-- Scroll to top button -->
+    <button
+      id="scroll-top"
+      class="fixed bottom-5 right-5 z-50 flex h-11 w-11 translate-y-4 items-center justify-center rounded-xl border border-navy-200 bg-white text-navy-500 opacity-0 shadow-lg transition-all duration-300 hover:border-accent-500 hover:bg-accent-500 hover:text-white sm:bottom-6 sm:right-6 sm:h-10 sm:w-10"
+      aria-label="Scroll to top"
+      style="pointer-events: none;"
+    >
+      <i class="fas fa-chevron-up text-sm"></i>
+    </button>
+
+    <script>
+      const scrollBtn = document.getElementById('scroll-top')
+      if (scrollBtn) {
+        let ticking = false
+        const onScroll = () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              if (window.scrollY > 600) {
+                scrollBtn.style.opacity = '1'
+                scrollBtn.style.transform = 'translateY(0)'
+                scrollBtn.style.pointerEvents = 'auto'
+              } else {
+                scrollBtn.style.opacity = '0'
+                scrollBtn.style.transform = 'translateY(1rem)'
+                scrollBtn.style.pointerEvents = 'none'
+              }
+              ticking = false
+            })
+            ticking = true
+          }
+        }
+        window.addEventListener('scroll', onScroll, { passive: true })
+        scrollBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        })
+      }
+    </script>
+  </body>
+</html>

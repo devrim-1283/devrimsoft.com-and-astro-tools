@@ -1,0 +1,162 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { LOCALES, ROUTE_MAP } from '@/i18n/locales'
+import { useTranslations } from '@/i18n/utils'
+import LanguagePicker from './LanguagePicker.astro'
+
+interface Props {
+  lang: Locale
+  currentPage: string
+}
+
+const { lang, currentPage } = Astro.props
+const t = useTranslations(lang)
+const localeEntries = Object.entries(LOCALES) as [Locale, (typeof LOCALES)[Locale]][]
+
+const isHome = currentPage === 'home'
+const homeBase = `/${lang}/`
+
+const navLinks = [
+  { key: 'hero', label: t('nav.home'), icon: 'fas fa-home' },
+  { key: 'about', label: t('nav.about'), icon: 'fas fa-building' },
+  { key: 'services', label: t('services.label'), icon: 'fas fa-cubes', href: `/${lang}/${ROUTE_MAP.services[lang]}/` },
+  { key: 'products', label: t('products.title'), icon: 'fas fa-box-open' },
+  { key: 'portfolio', label: t('nav.portfolio'), icon: 'fas fa-briefcase' },
+  { key: 'certifications', label: t('nav.certifications'), icon: 'fas fa-certificate' },
+  { key: 'contact', label: t('nav.contact'), icon: 'fas fa-envelope' },
+]
+---
+
+<input type="checkbox" id="mobile-menu-toggle" class="peer hidden" aria-hidden="true" />
+
+<!-- Backdrop overlay for mobile menu -->
+<label
+  for="mobile-menu-toggle"
+  data-mobile-backdrop
+  class="fixed inset-0 z-30 bg-navy-900/50 backdrop-blur-sm lg:hidden"
+  aria-hidden="true"
+></label>
+
+<header class="sticky top-0 z-40 border-b border-navy-100 bg-white/95 backdrop-blur-xl">
+  <nav class="container-wide flex h-16 items-center justify-between sm:h-18" aria-label="Main navigation">
+    <!-- Logo -->
+    <a href={isHome ? '#hero' : homeBase} class="group flex items-center gap-2">
+      <div class="flex h-10 w-auto items-center text-navy-800 transition-colors duration-200 group-hover:text-accent-500 sm:h-14">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 698" fill="currentColor" class="h-10 w-auto sm:h-12">
+          <g transform="translate(0,698) scale(0.1,-0.1)" stroke="none">
+            <path d="M7570 5180 c-448 -71 -752 -383 -810 -831 -5 -41 -10 -278 -10 -527 l0 -454 -67 70 c-201 207 -475 275 -749 188 -83 -27 -185 -85 -241 -139 -43 -40 -42 -21 3 61 58 106 92 152 169 227 136 134 245 180 425 179 97 0 128 -5 200 -28 47 -16 99 -36 116 -47 17 -10 33 -17 35 -15 2 2 2 34 1 71 -4 77 8 69 -177 122 -269 76 -568 47 -828 -83 -118 -59 -202 -122 -303 -226 -150 -155 -243 -323 -296 -540 -20 -80 -23 -118 -22 -268 0 -157 3 -185 27 -275 26 -97 109 -283 158 -355 129 -190 276 -314 490 -414 295 -138 658 -137 955 4 366 173 594 478 659 881 7 45 8 1259 1 1266 -9 9 -68 -31 -90 -60 -21 -28 -21 -39 -27 -615 -6 -621 -7 -627 -57 -772 -84 -240 -287 -467 -517 -576 -124 -58 -175 -74 -266 -81 -240 -18 -487 130 -631 379 -26 45 -46 84 -43 86 3 3 35 -15 73 -40 86 -58 129 -79 217 -109 61 -21 88 -24 205 -23 120 1 143 4 209 27 193 69 333 188 420 357 71 136 73 150 82 585 4 215 12 415 18 446 16 81 72 226 113 290 46 70 140 157 215 199 247 138 296 172 374 258 118 131 190 332 191 532 0 87 -24 226 -42 244 -13 13 -112 17 -180 6z m95 -205 c19 -156 -43 -358 -147 -483 -59 -71 -133 -125 -281 -207 -70 -38 -152 -91 -183 -117 -52 -45 -137 -140 -163 -183 -20 -34 -8 384 13 460 48 172 126 306 238 411 56 53 241 164 253 152 2 -2 -19 -33 -47 -68 -98 -125 -158 -298 -158 -454 0 -52 4 -86 10 -86 18 0 88 48 104 72 9 12 16 37 16 55 0 132 86 320 189 411 39 35 124 92 137 92 7 0 15 -24 19 -55z m-1901 -1127 c-158 -167 -252 -365 -305 -643 -18 -91 -18 -404 0 -509 14 -88 55 -227 95 -324 39 -98 130 -228 227 -324 48 -49 87 -88 86 -88 -9 0 -124 48 -169 70 -97 48 -169 100 -249 180 -100 100 -151 171 -211 295 -108 228 -133 468 -72 702 20 78 88 234 129 298 82 128 210 250 355 335 53 32 156 79 174 80 5 0 -22 -33 -60 -72z m496 -318 c137 -18 286 -109 375 -231 78 -105 115 -218 115 -350 0 -110 -14 -173 -61 -268 -57 -115 -145 -202 -260 -259 -98 -47 -161 -62 -264 -62 -96 0 -164 15 -250 54 -164 75 -288 229 -330 409 -75 317 162 665 480 707 84 11 110 11 195 0z"/>
+          </g>
+        </svg>
+      </div>
+      <span class="font-display text-xl font-bold text-navy-900 sm:text-3xl">Devrim<span class="text-accent-500">Soft</span></span>
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden items-center gap-0.5 lg:flex">
+      {navLinks.map(({ key, label, href }) => (
+        <li>
+          <a
+            href={href ?? (isHome ? `#${key}` : `${homeBase}#${key}`)}
+            class="relative rounded-xl px-4 py-2 text-sm font-medium text-navy-600 transition-all duration-200 hover:bg-navy-50 hover:text-navy-900"
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <!-- Desktop language picker -->
+      <div class="hidden lg:block">
+        <LanguagePicker lang={lang} currentPage={currentPage} />
+      </div>
+
+      <!-- Mobile menu button -->
+      <label
+        for="mobile-menu-toggle"
+        class="relative flex h-11 w-11 cursor-pointer flex-col items-center justify-center gap-[5px] rounded-xl border border-navy-200 text-navy-700 transition-all duration-200 hover:border-navy-300 hover:bg-navy-50 active:bg-navy-100 lg:hidden"
+        aria-label="Toggle menu"
+      >
+        <span class="hamburger-bar block h-[2px] w-[18px] rounded-full bg-current"></span>
+        <span class="hamburger-bar block h-[2px] w-[18px] rounded-full bg-current"></span>
+        <span class="hamburger-bar block h-[2px] w-[18px] rounded-full bg-current"></span>
+      </label>
+    </div>
+  </nav>
+
+  <!-- Mobile menu panel -->
+  <div class="border-t border-navy-100 bg-white lg:!hidden" data-mobile-menu>
+    <div class="container-wide py-5 safe-bottom">
+      <!-- Navigation links -->
+      <ul class="space-y-1">
+        {navLinks.map(({ key, label, icon, href }, index) => {
+          const isContact = key === 'contact'
+          return (
+            <li class="mobile-menu-item" style={`--item-index: ${index}`}>
+              <a
+                href={href ?? (isHome ? `#${key}` : `${homeBase}#${key}`)}
+                data-mobile-link
+                class:list={[
+                  'flex items-center gap-4 rounded-2xl px-4 py-3.5 text-[15px] font-medium transition-all duration-200',
+                  isContact && 'mt-2 bg-accent-500 text-white shadow-lg shadow-accent-500/25 active:bg-accent-600',
+                  !isContact && 'text-navy-700 active:bg-navy-50',
+                ]}
+              >
+                <span
+                  class:list={[
+                    'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl',
+                    isContact ? 'bg-white/20 text-white' : 'bg-navy-100/80 text-navy-500',
+                  ]}
+                >
+                  <i class:list={[icon, 'text-sm']}></i>
+                </span>
+                <span class="flex-1">{label}</span>
+                {isContact ? (
+                  <i class="fas fa-arrow-right text-xs text-white/60"></i>
+                ) : (
+                  <i class="fas fa-chevron-right text-[10px] text-navy-300"></i>
+                )}
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+
+      <!-- Mobile language combobox -->
+      <div class="mobile-menu-item mt-5 border-t border-navy-100 pt-5" style="--item-index: 7">
+        <div class="relative">
+          <div class="flex items-center gap-3 rounded-2xl border border-navy-200 bg-navy-50/50 px-4 py-3">
+            <i class="fas fa-globe text-sm text-navy-400"></i>
+            <select
+              id="mobile-lang-select"
+              class="flex-1 appearance-none border-none bg-transparent text-[15px] font-medium text-navy-700 outline-none"
+            >
+              {localeEntries.map(([code, locale]) => (
+                <option value={`/${code}/`} selected={code === lang}>
+                  {locale.nativeName}
+                </option>
+              ))}
+            </select>
+            <i class="fas fa-chevron-down text-[10px] text-navy-400 pointer-events-none"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.querySelectorAll('[data-mobile-link]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const toggle = document.getElementById('mobile-menu-toggle') as HTMLInputElement | null
+      if (toggle) toggle.checked = false
+    })
+  })
+
+  const langSelect = document.getElementById('mobile-lang-select') as HTMLSelectElement | null
+  if (langSelect) {
+    langSelect.addEventListener('change', () => {
+      window.location.href = langSelect.value
+    })
+  }
+</script>

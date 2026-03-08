@@ -1,0 +1,102 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { useTranslations } from '@/i18n/utils'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHeader from '@/components/shared/PageHeader.astro'
+import ScrollReveal from '@/components/shared/ScrollReveal.astro'
+import CTASection from '@/components/home/CTASection.astro'
+
+interface Props {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+
+const statLabels: Record<string, Record<string, string>> = {
+  projects: {
+    tr: 'Tamamlanan Proje', en: 'Completed Projects', ru: 'Завершённых проектов',
+    uk: 'Завершених проєктiв', de: 'Abgeschlossene Projekte', es: 'Proyectos Completados', fr: 'Projets Realises',
+  },
+  clients: {
+    tr: 'Mutlu Musteri', en: 'Happy Clients', ru: 'Довольных клиентов',
+    uk: 'Задоволених клiєнтiв', de: 'Zufriedene Kunden', es: 'Clientes Satisfechos', fr: 'Clients Satisfaits',
+  },
+  languages: {
+    tr: 'Dil Destegi', en: 'Languages', ru: 'Языков',
+    uk: 'Мов', de: 'Sprachen', es: 'Idiomas', fr: 'Langues',
+  },
+  uptime: {
+    tr: 'Uptime Garantisi', en: 'Uptime Guarantee', ru: 'Гарантия Uptime',
+    uk: 'Гарантiя Uptime', de: 'Uptime-Garantie', es: 'Garantia de Uptime', fr: 'Garantie de Disponibilite',
+  },
+}
+
+const stats = [
+  { value: '50+', key: 'projects', icon: 'fas fa-folder-open' },
+  { value: '30+', key: 'clients', icon: 'fas fa-users' },
+  { value: '7', key: 'languages', icon: 'fas fa-language' },
+  { value: '99.9%', key: 'uptime', icon: 'fas fa-server' },
+]
+---
+
+<BaseLayout
+  title={t('about.title')}
+  description={t('about.subtitle')}
+  lang={lang}
+  currentPage="about"
+>
+  <PageHeader title={t('about.title')} subtitle={t('about.subtitle')} />
+
+  <!-- Story Section -->
+  <section class="section-padding bg-white">
+    <div class="container-wide">
+      <ScrollReveal class="mx-auto max-w-3xl">
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-navy-200 bg-navy-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy-600">
+          <i class="fas fa-book-open text-accent-500"></i>
+          {t('about.story.title')}
+        </div>
+        <h2 class="heading-2 text-navy-900">{t('about.story.title')}</h2>
+        <p class="mt-6 text-lg leading-relaxed text-navy-600">
+          {t('about.story.text')}
+        </p>
+
+        <!-- Tax Certificate -->
+        <div class="mt-6 rounded-xl border border-emerald-200 bg-emerald-50/50 p-4 sm:mt-8 sm:p-5">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 sm:h-12 sm:w-12">
+              <i class="fas fa-file-invoice text-lg text-emerald-600"></i>
+            </div>
+            <div>
+              <div class="mb-0.5 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700">
+                <i class="fas fa-circle-check text-[9px]"></i>
+                {t('about.taxCert.badge')}
+              </div>
+              <p class="text-sm font-medium text-navy-700 sm:text-base">{t('about.taxCert.desc')}</p>
+            </div>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="relative overflow-hidden bg-navy-950 py-16">
+    <div class="absolute inset-0 text-white/[0.02] dot-pattern"></div>
+    <div class="container-wide relative">
+      <div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
+        {stats.map((stat) => (
+          <ScrollReveal class="text-center">
+            <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-accent-500/10">
+              <i class:list={[stat.icon, 'text-lg text-accent-400']}></i>
+            </div>
+            <div class="font-display text-4xl font-bold text-white">{stat.value}</div>
+            <div class="mt-2 text-sm font-medium text-navy-400">{statLabels[stat.key][lang]}</div>
+          </ScrollReveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection lang={lang} />
+</BaseLayout>

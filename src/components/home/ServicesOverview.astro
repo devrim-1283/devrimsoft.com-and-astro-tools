@@ -1,0 +1,89 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { ROUTE_MAP } from '@/i18n/locales'
+import { useTranslations, getServiceDetailPath } from '@/i18n/utils'
+
+interface Props {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+
+const services = [
+  { key: 'web', title: t('services.web.title'), desc: t('services.web.desc'), icon: 'fas fa-globe', gradient: 'from-blue-500 to-indigo-600', size: 'large' },
+  { key: 'security', title: t('services.security.title'), desc: t('services.security.desc'), icon: 'fas fa-shield-halved', gradient: 'from-rose-500 to-orange-500', size: 'large' },
+  { key: 'mobile', title: t('services.mobile.title'), desc: t('services.mobile.desc'), icon: 'fas fa-mobile-screen', gradient: 'from-emerald-500 to-teal-600', size: 'normal' },
+  { key: 'api', title: t('services.api.title'), desc: t('services.api.desc'), icon: 'fas fa-code', gradient: 'from-violet-500 to-purple-600', size: 'normal' },
+  { key: 'cloud', title: t('services.cloud.title'), desc: t('services.cloud.desc'), icon: 'fas fa-cloud', gradient: 'from-amber-500 to-orange-600', size: 'normal' },
+  { key: 'consulting', title: t('services.consulting.title'), desc: t('services.consulting.desc'), icon: 'fas fa-lightbulb', gradient: 'from-pink-500 to-rose-600', size: 'normal' },
+  { key: 'database', title: t('services.database.title'), desc: t('services.database.desc'), icon: 'fas fa-database', gradient: 'from-cyan-500 to-blue-600', size: 'normal' },
+  { key: 'pentest', title: t('services.pentest.title'), desc: t('services.pentest.desc'), icon: 'fas fa-user-secret', gradient: 'from-red-600 to-rose-700', size: 'large' },
+  { key: 'hotspot', title: t('services.hotspot.title'), desc: t('services.hotspot.desc'), icon: 'fas fa-wifi', gradient: 'from-sky-500 to-indigo-600', size: 'normal' },
+  { key: 'server', title: t('services.server.title'), desc: t('services.server.desc'), icon: 'fas fa-server', gradient: 'from-slate-600 to-zinc-700', size: 'large' },
+  { key: 'hosting', title: t('services.hosting.title'), desc: t('services.hosting.desc'), icon: 'fas fa-hard-drive', gradient: 'from-teal-500 to-emerald-600', size: 'normal' },
+  { key: 'proxy', title: t('services.proxy.title'), desc: t('services.proxy.desc'), icon: 'fas fa-route', gradient: 'from-fuchsia-500 to-purple-700', size: 'normal' },
+  { key: 'email', title: t('services.email.title'), desc: t('services.email.desc'), icon: 'fas fa-envelope-circle-check', gradient: 'from-orange-500 to-red-600', size: 'normal' },
+]
+---
+
+<section id="services" class="section-padding relative overflow-hidden bg-gradient-to-b from-navy-50/40 to-white">
+  <!-- Background decoration -->
+  <div class="absolute right-0 top-0 h-96 w-96 rounded-full bg-accent-500/5 blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl"></div>
+
+  <div class="container-wide relative">
+    <div class="text-center">
+      <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-navy-200 bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-600 sm:mb-4 sm:px-4 sm:text-xs">
+        <i class="fas fa-cubes text-accent-500"></i>
+        {t('services.label')}
+      </div>
+      <h2 class="heading-2 text-navy-900">{t('services.label')}</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-base text-navy-600 sm:mt-4 sm:text-lg">{t('services.subtitle')}</p>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="mt-10 grid gap-3 sm:mt-16 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+      {services.map((service) => (
+        <div
+          class:list={[
+            'group relative overflow-hidden rounded-2xl border border-navy-100 bg-white p-5 transition-all duration-300 hover:border-navy-200 hover:shadow-xl hover:shadow-navy-100/50 hover:-translate-y-1 sm:p-8',
+            service.size === 'large' ? 'sm:col-span-2 lg:col-span-2' : '',
+          ]}
+        >
+          <div class="flex items-start gap-4 sm:gap-6">
+            <!-- Icon -->
+            <div class={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${service.gradient} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 sm:h-14 sm:w-14`}>
+              <i class:list={[service.icon, 'text-base sm:text-xl']}></i>
+            </div>
+
+            <div class="min-w-0 flex-1">
+              <h3 class="font-display text-base font-bold text-navy-900 sm:text-xl">{service.title}</h3>
+              <p class="mt-1.5 text-xs leading-relaxed text-navy-600 sm:mt-2 sm:text-sm">{service.desc}</p>
+              <a
+                href={getServiceDetailPath(lang, service.key)}
+                class="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold text-accent-600 transition-colors hover:text-accent-700 sm:mt-4 sm:text-xs"
+              >
+                <i class="fas fa-arrow-right text-[9px] transition-transform group-hover:translate-x-1"></i>
+                {t('services.detail.viewDetails')}
+              </a>
+            </div>
+          </div>
+
+          <!-- Hover accent line -->
+          <div class="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-accent-400 to-accent-600 transition-all duration-500 group-hover:w-full"></div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-10 text-center sm:mt-14">
+      <a
+        href={`/${lang}/${ROUTE_MAP.services[lang]}/`}
+        class="inline-flex items-center gap-2 rounded-xl border border-navy-200 bg-white px-6 py-3 text-sm font-semibold text-navy-700 shadow-sm transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white hover:shadow-lg hover:shadow-accent-500/25"
+      >
+        {t('services.page.viewAll')}
+        <i class="fas fa-arrow-right text-xs"></i>
+      </a>
+    </div>
+  </div>
+</section>

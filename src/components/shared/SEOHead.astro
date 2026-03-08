@@ -1,0 +1,66 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { getAlternateLinks } from '@/i18n/utils'
+
+interface Props {
+  title: string
+  description: string
+  lang: Locale
+  currentPage: string
+  ogImage?: string
+  noindex?: boolean
+  customAlternateLinks?: Array<{ lang: Locale; href: string }>
+}
+
+// Build-time cache buster — her build'de değişir, tarayıcı yeniden yükler
+const BUILD_VER = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14)
+
+const { title, description, lang, currentPage, ogImage: ogImageProp = '/og-image.png', noindex = false, customAlternateLinks } = Astro.props
+const ogImage = `${ogImageProp}?v=${BUILD_VER}`
+const alternateLinks = customAlternateLinks ?? getAlternateLinks(currentPage)
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content="Devrim Tuncer" />
+<meta name="theme-color" content="#d4982b" />
+{noindex && <meta name="robots" content="noindex,nofollow" />}
+
+<link rel="canonical" href={canonicalUrl.href} />
+<link rel="icon" type="image/svg+xml" href={`/favicon.svg?v=${BUILD_VER}`} />
+
+<!-- Alternate language links -->
+{alternateLinks.map(({ lang: altLang, href }) => (
+  <link rel="alternate" hreflang={altLang} href={new URL(href, Astro.site).href} />
+))}
+<link rel="alternate" hreflang="x-default" href={new URL('/tr/', Astro.site).href} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content={canonicalUrl.href} />
+<meta property="og:locale" content={lang} />
+<meta property="og:site_name" content="DevrimSoft" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<!-- Preconnect for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
