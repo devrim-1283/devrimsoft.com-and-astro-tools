@@ -1,0 +1,65 @@
+---
+import type { Locale } from '@/i18n/locales'
+import BaseLayout from './BaseLayout.astro'
+import Breadcrumb from '@/components/shared/Breadcrumb.astro'
+import { useTranslations, getLocalizedPath } from '@/i18n/utils'
+
+interface Props {
+  frontmatter: {
+    title: string
+    description: string
+    date: string
+    author?: string
+    tags?: string[]
+  }
+  lang: Locale
+  currentPage: string
+  parentPage: string
+  parentLabel: string
+}
+
+const { frontmatter, lang, currentPage, parentPage, parentLabel } = Astro.props
+const t = useTranslations(lang)
+
+const formattedDate = new Date(frontmatter.date).toLocaleDateString(lang, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+---
+
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  lang={lang}
+  currentPage={currentPage}
+>
+  <Breadcrumb
+    lang={lang}
+    items={[
+      { label: parentLabel, href: getLocalizedPath(lang, parentPage) },
+      { label: frontmatter.title },
+    ]}
+  />
+
+  <article class="container-wide py-12">
+    <header class="mx-auto max-w-3xl text-center">
+      <h1 class="heading-1 text-navy-900">{frontmatter.title}</h1>
+      <div class="mt-4 flex items-center justify-center gap-4 text-sm text-navy-500">
+        <time datetime={frontmatter.date}>{formattedDate}</time>
+        {frontmatter.author && <span>· {frontmatter.author}</span>}
+      </div>
+      {frontmatter.tags && (
+        <div class="mt-4 flex flex-wrap justify-center gap-2">
+          {frontmatter.tags.map((tag) => (
+            <span class="rounded-full bg-navy-100 px-3 py-1 text-xs font-medium text-navy-700">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="prose prose-navy mx-auto mt-12 max-w-3xl">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

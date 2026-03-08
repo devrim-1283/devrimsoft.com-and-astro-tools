@@ -1,0 +1,148 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { ROUTE_MAP } from '@/i18n/locales'
+import { useTranslations, getServiceDetailPath } from '@/i18n/utils'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHeader from '@/components/shared/PageHeader.astro'
+
+interface Props {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+
+const services = [
+  {
+    key: 'web',
+    icon: 'fas fa-globe',
+    gradient: 'from-blue-500 to-indigo-600',
+  },
+  {
+    key: 'security',
+    icon: 'fas fa-shield-halved',
+    gradient: 'from-rose-500 to-orange-500',
+  },
+  {
+    key: 'mobile',
+    icon: 'fas fa-mobile-screen',
+    gradient: 'from-emerald-500 to-teal-600',
+  },
+  {
+    key: 'api',
+    icon: 'fas fa-code',
+    gradient: 'from-violet-500 to-purple-600',
+  },
+  {
+    key: 'cloud',
+    icon: 'fas fa-cloud',
+    gradient: 'from-amber-500 to-orange-600',
+  },
+  {
+    key: 'consulting',
+    icon: 'fas fa-lightbulb',
+    gradient: 'from-pink-500 to-rose-600',
+  },
+  {
+    key: 'database',
+    icon: 'fas fa-database',
+    gradient: 'from-cyan-500 to-blue-600',
+  },
+  {
+    key: 'pentest',
+    icon: 'fas fa-user-secret',
+    gradient: 'from-red-600 to-rose-700',
+  },
+  {
+    key: 'hotspot',
+    icon: 'fas fa-wifi',
+    gradient: 'from-sky-500 to-indigo-600',
+  },
+  {
+    key: 'server',
+    icon: 'fas fa-server',
+    gradient: 'from-slate-600 to-zinc-700',
+  },
+  {
+    key: 'hosting',
+    icon: 'fas fa-hard-drive',
+    gradient: 'from-teal-500 to-emerald-600',
+  },
+  {
+    key: 'proxy',
+    icon: 'fas fa-route',
+    gradient: 'from-fuchsia-500 to-purple-700',
+  },
+  {
+    key: 'email',
+    icon: 'fas fa-envelope-circle-check',
+    gradient: 'from-orange-500 to-red-600',
+  },
+]
+
+const contactPath = `/${lang}/${ROUTE_MAP.contact[lang]}/`
+---
+
+<BaseLayout
+  title={t('services.page.title')}
+  description={t('services.page.subtitle')}
+  lang={lang}
+  currentPage="services"
+>
+  <PageHeader title={t('services.page.title')} subtitle={t('services.page.subtitle')} />
+
+  <section class="section-padding relative overflow-hidden bg-white">
+    <div class="absolute right-0 top-0 h-96 w-96 rounded-full bg-accent-500/5 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl"></div>
+
+    <div class="container-wide relative">
+      <div class="grid gap-5 sm:grid-cols-2 lg:gap-6">
+        {services.map((service) => {
+          const title = t(`services.${service.key}.title`)
+          const desc = t(`services.${service.key}.desc`)
+          const features = [
+            t(`services.${service.key}.feature1`),
+            t(`services.${service.key}.feature2`),
+            t(`services.${service.key}.feature3`),
+          ]
+
+          return (
+            <div class="group relative flex flex-col overflow-hidden rounded-2xl border border-navy-100 bg-white p-6 transition-all duration-300 hover:border-navy-200 hover:shadow-xl hover:shadow-navy-100/50 hover:-translate-y-1 sm:p-8">
+              <div class="flex items-start gap-4 sm:gap-5">
+                <div class={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${service.gradient} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 sm:h-14 sm:w-14`}>
+                  <i class:list={[service.icon, 'text-lg sm:text-xl']}></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h2 class="font-display text-lg font-bold text-navy-900 sm:text-xl">{title}</h2>
+                </div>
+              </div>
+
+              <p class="mt-4 text-sm leading-relaxed text-navy-600 sm:text-[15px]">{desc}</p>
+
+              <ul class="mt-5 space-y-2.5">
+                {features.map((feature) => (
+                  <li class="flex items-start gap-2.5 text-sm text-navy-700">
+                    <i class="fas fa-check mt-0.5 text-xs text-accent-500"></i>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div class="mt-6 flex items-center gap-4 pt-2">
+                <a
+                  href={getServiceDetailPath(lang, service.key)}
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-accent-600 transition-colors hover:text-accent-700"
+                >
+                  {t('services.detail.viewDetails')}
+                  <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                </a>
+              </div>
+
+              <div class="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-accent-400 to-accent-600 transition-all duration-500 group-hover:w-full"></div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

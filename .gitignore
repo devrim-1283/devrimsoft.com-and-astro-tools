@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# Cloudflare
+.wrangler/
+.dev.vars
+functions/[[path]].js
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Claude Code
+.claude/
+CLAUDE.md
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Bun
+bun-debug.log
+
+# TypeScript
+*.tsbuildinfo

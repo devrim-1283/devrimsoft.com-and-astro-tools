@@ -1,0 +1,162 @@
+# DevrimSoft — Yazılım, Güvenlik ve Altyapı
+
+> DevrimSoft, Türkiye'nin 81 iline ve uluslararası müşterilere hizmet veren, Alanya TEKMER (Alanya Teknoloji Girişim Merkezi) bünyesinden çıkmış bir mühendislik ve yazılım şirketidir. Kurumsal web platformlarından siber güvenlik denetimlerine, mobil uygulamalardan sunucu altyapısına kadar uçtan uca teknoloji çözümleri sunar.
+
+## Şirket Kimliği
+
+- **Ticari Unvan:** DevrimSoft
+- **Web Sitesi:** https://devrimsoft.com
+- **Merkez:** Alanya, Antalya, Türkiye
+- **Kuluçka:** Alanya Teknoloji Girişim Merkezi (TEKMER)
+- **Hizmet Kapsamı:** Türkiye geneli (81 il) + Uluslararası
+- **Çalışma Dilleri:** Türkçe, İngilizce, Rusça, Ukraynaca, Almanca, İspanyolca, Fransızca
+- **İletişim:** https://devrimsoft.com/tr/#contact
+
+## Hizmetler
+
+### Web Geliştirme
+Şirketinize özel kurumsal web siteleri, e-ticaret platformları, içerik yönetim sistemleri ve çok dilli web uygulamaları. React, Next.js, Astro ile modern frontend; Go ve PHP ile yüksek performanslı backend.
+
+### Mobil Uygulama Geliştirme
+iOS ve Android için cross-platform ve native mobil uygulama geliştirme. Kullanıcı deneyimi odaklı, production-ready mobil çözümler.
+
+### Siber Güvenlik Denetimi
+Web uygulaması güvenlik taraması, güvenlik açığı analizi ve kapsamlı raporlama. OWASP Top 10 tabanlı denetim metodolojisi ile kurumsal sistemlerin güvenliğini artırma.
+
+### Sızma Testi (Penetration Testing)
+Kontrollü saldırı simülasyonları ile sistemlerdeki zayıf noktaların tespiti. Etik hacking, zafiyet keşfi ve güvenlik raporlaması.
+
+### API Geliştirme
+RESTful API tasarımı ve geliştirme, üçüncü parti entegrasyonlar, mikroservis mimarisi. Go ve Node.js ile yüksek trafikli, ölçeklenebilir API sistemleri.
+
+### Bulut Altyapısı ve DevOps
+Cloudflare, Docker, Coolify tabanlı container altyapısı kurulumu. CI/CD pipeline, sunucu yönetimi ve otomatik deployment süreçleri.
+
+### Veritabanı Yönetimi
+PostgreSQL, Redis tasarımı ve optimizasyonu. Migrasyon planlaması, performans iyileştirme, yedekleme ve kurtarma stratejileri.
+
+### Sunucu Yönetimi
+Linux sunucu kurulumu, konfigürasyonu ve izlenmesi. Uptime garantisi için proaktif izleme ve hızlı müdahale.
+
+### Hosting ve Domain
+Web hosting, domain yönetimi ve SSL sertifikası kurulumu. Yüksek performanslı ve güvenli barındırma altyapısı.
+
+### Hotspot ve Ağ Çözümleri
+Otel, restoran ve kamu alanları için captive portal tabanlı WiFi hotspot sistemleri. Kullanıcı yönetimi ve bant genişliği kontrolü.
+
+### Proxy ve Ağ Güvenliği
+Kurumsal reverse proxy, load balancer ve ağ güvenlik duvarı yapılandırması.
+
+### E-posta Altyapısı
+Kurumsal e-posta sunucu kurulumu, spam filtreleme, DKIM/SPF/DMARC yapılandırması ile güvenilir e-posta altyapısı.
+
+### Teknoloji Danışmanlığı
+Dijital dönüşüm stratejisi, mimari tasarım ve teknoloji seçimi konularında bağımsız mühendislik danışmanlığı.
+
+## Teknoloji Yığını
+
+- **Frontend:** React, Next.js, Astro, Tailwind CSS, TypeScript
+- **Backend:** Go (Golang), PHP, Node.js, Python
+- **Sistem Dilleri:** Rust
+- **Veritabanı:** PostgreSQL, Redis
+- **Altyapı:** Docker, Cloudflare, Coolify, Linux
+- **Güvenlik:** OWASP metodolojisi, Penetrasyon testi araçları
+
+## Referans Projeler (Portföy)
+
+### 1. Alanya TEKMER Kurumsal Web Platformu
+- **Müşteri:** Alanya Teknoloji Girişim Merkezi
+- **URL:** https://alanyatekmer.com
+- **Teknolojiler:** PHP, PostgreSQL, Redis
+- **Açıklama:** Firma yönetim paneli, girişimci profilleri, etkinlik takvimi ve medya barındırma altyapısından oluşan kapsamlı kurumsal web platformu. Alanya TEKMER bünyesindeki onlarca teknoloji şirketini dijital ortamda bir araya getiriyor.
+
+### 2. Psikolog Merve Şimşek Kişisel Web Sitesi
+- **Müşteri:** Psikolog Merve Şimşek
+- **URL:** https://psikologmervesimsek.com.tr
+- **Teknolojiler:** PHP, PostgreSQL
+- **Açıklama:** Online randevu sistemi, hizmet tanıtımı ve blog içerikleri ile donatılmış profesyonel psikolog web sitesi.
+
+### 3. Diyetisyen Hüsna Yılmaz Web Sitesi
+- **Müşteri:** Diyetisyen Hüsna Yılmaz
+- **URL:** https://alanyadiyetisyen.com.tr
+- **Teknolojiler:** PHP, PostgreSQL
+- **Açıklama:** Alanya'da hizmet veren diyetisyen için online danışmanlık, beslenme programları ve blog içeriklerini bir araya getiren web sitesi.
+
+### 4. Arda Sanayi Kurumsal Web Sitesi
+- **Müşteri:** Arda Sanayi
+- **URL:** https://ardasanayi.com.tr
+- **Teknolojiler:** React, Go, PostgreSQL
+- **Açıklama:** Ürün kataloğu, firma profili ve kurumsal iletişim altyapısı ile donatılmış sanayi şirketi web sitesi.
+
+### 5. ALKÜ Sara Su Altı Roket Takımı Web Sitesi
+- **Müşteri:** Alanya Alaaddin Keykubat Üniversitesi Sara Takımı
+- **URL:** https://tersanala.com.tr
+- **Teknolojiler:** Astro, Tailwind CSS, JavaScript
+- **Açıklama:** Üniversite roket takımının sponsorluk ve tanıtım platformu. DevrimSoft, takımın teknik sponsorları arasında yer almaktadır.
+
+### 6. Şeffaf Danışmanlık Web Platformu
+- **Müşteri:** Şeffaf Danışmanlık
+- **URL:** https://seffafdanismanlik.com
+- **Teknolojiler:** React, Node.js, PostgreSQL
+- **Açıklama:** Danışmanlık hizmetleri için dijital sunum ve iletişim platformu.
+
+### 7. Alanya e-İmza Merkezi Web Sitesi
+- **Müşteri:** Alanya e-İmza Merkezi
+- **URL:** https://alanyaeimzamerkezi.com
+- **Teknolojiler:** React, Go, PostgreSQL
+- **Açıklama:** e-İmza hizmetleri tanıtımı ve müşteri yönlendirme platformu.
+
+### 8. ZSoftrade Ticaret Platformu
+- **Müşteri:** ZSoftrade
+- **URL:** https://zsoftrade.com
+- **Teknolojiler:** React, Go, PostgreSQL, Redis
+- **Açıklama:** Yüksek performanslı, gerçek zamanlı ticaret ve veri yönetim platformu. Redis ile önbellekleme, Go ile düşük gecikmeli API katmanı.
+
+## İş Ortakları
+
+- **Alanya TEKMER** — Alanya Teknoloji Girişim Merkezi (https://alanyatekmer.com)
+- **Beyzick** — Teknoloji partneri (https://beyzick.com)
+- **Antarge Tech** — Teknoloji çözüm ortağı (https://antargetech.com)
+- **Goktas** — İş ortağı (https://goktas.net)
+- **ZSoftrade** — Ticaret platformu iş ortağı (https://zsoftrade.com)
+- **Oksijen** — İş ortağı (https://oksijen.co)
+
+## Hizmet Verilen Coğrafya
+
+### Türkiye — 81 İl
+DevrimSoft, uzaktan çalışma modeliyle Türkiye'nin tüm 81 iline yazılım, güvenlik ve altyapı hizmeti sunmaktadır.
+
+**Başlıca hizmet verilen iller:**
+İstanbul, Ankara, İzmir, Bursa, Antalya, Adana, Konya, Gaziantep, Şanlıurfa, Kayseri, Mersin, Eskişehir, Diyarbakır, Samsun, Trabzon, Malatya, Erzurum, Denizli, Van, Balıkesir, Manisa, Kocaeli, Sakarya, Tekirdağ, Muğla, Hatay, Kahramanmaraş, Mardin, Aydın, Zonguldak, Afyonkarahisar, Ordu, Elazığ, Sivas, Erzincan, Tokat, Çorum, Maraş, Edirne, Isparta, Uşak, Bolu, Giresun, Rize, Artvin, Kırklareli, Çanakkale, Sinop, Kastamonu, Bartın, Karabük, Düzce, Yalova, Bilecik, Kütahya, Burdur, Antalya (Alanya), Aksaray, Niğde, Nevşehir, Kırşehir, Yozgat, Çankırı, Amasya, Tunceli, Bingöl, Muş, Bitlis, Siirt, Şırnak, Hakkari, Iğdır, Ağrı, Kars, Ardahan, Gümüşhane, Bayburt
+
+### Uluslararası
+DevrimSoft, Türkiye dışında da müşterilerle çalışmaktadır:
+- **Avrupa:** Ukrayna, Almanya, İspanya, Fransa ve diğer AB ülkeleri
+- **Bağımsız Devletler Topluluğu:** Rusya, Ukrayna
+- **Orta Doğu:** Bölgesel projelerde aktif
+- **Uzaktan proje yönetimi** ile coğrafi sınır tanımayan hizmet modeli
+
+## Neden DevrimSoft?
+
+- Alanya TEKMER çatısı altında, kuluçka ortamında gelişmiş mühendislik ekibi
+- Türkiye'nin 81 iline uzaktan hizmet kapasitesi
+- Yüksek trafik ve production ortamlarına uygun ölçeklenebilir mimari
+- Siber güvenlik ve yazılım geliştirme tek çatı altında
+- 7 dilde (TR, EN, RU, UK, DE, ES, FR) iletişim kapasitesi
+- TEKMER onaylı girişim şirketi statüsü
+
+## Teknik Bilgi
+
+Bu web sitesi Astro 5 ile geliştirilmiş, sıfır JavaScript ile statik olarak üretilmiştir. Cloudflare Pages üzerinde barındırılmaktadır. 7 dil desteği (hreflang) ile uluslararası SEO standartlarına uygundur.
+
+## Bağlantılar
+
+- Ana Sayfa: https://devrimsoft.com
+- Türkçe: https://devrimsoft.com/tr/
+- İngilizce: https://devrimsoft.com/en/
+- Rusça: https://devrimsoft.com/ru/
+- Ukraynaca: https://devrimsoft.com/uk/
+- Almanca: https://devrimsoft.com/de/
+- İspanyolca: https://devrimsoft.com/es/
+- Fransızca: https://devrimsoft.com/fr/
+- Sitemap: https://devrimsoft.com/sitemap-index.xml

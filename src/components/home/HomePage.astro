@@ -1,0 +1,28 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { useTranslations } from '@/i18n/utils'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import HeroSection from './HeroSection.astro'
+import VisionMission from './VisionMission.astro'
+import ServicesOverview from './ServicesOverview.astro'
+import CTASection from './CTASection.astro'
+
+interface Props {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+---
+
+<BaseLayout
+  title={t('nav.home')}
+  description={t('hero.subtitle')}
+  lang={lang}
+  currentPage="home"
+>
+  <HeroSection lang={lang} />
+  <VisionMission lang={lang} />
+  <ServicesOverview lang={lang} />
+  <CTASection lang={lang} />
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+interface Props {
+  title: string
+  subtitle?: string
+}
+
+const { title, subtitle } = Astro.props
+---
+
+<section class="relative overflow-hidden bg-gradient-to-br from-navy-100 via-navy-50 to-white py-14 sm:py-24">
+  <!-- Subtle accent glow -->
+  <div class="absolute right-0 top-0 h-72 w-72 rounded-full bg-accent-500/8 blur-3xl"></div>
+  <div class="absolute -left-20 bottom-0 h-56 w-56 rounded-full bg-navy-200/30 blur-3xl"></div>
+
+  <div class="container-wide relative text-center">
+    <h1 class="heading-1 text-navy-900">{title}</h1>
+    {subtitle && (
+      <p class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-navy-600 sm:mt-5 sm:text-lg">{subtitle}</p>
+    )}
+  </div>
+</section>

@@ -1,0 +1,805 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { useTranslations } from '@/i18n/utils'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import HeroSection from './HeroSection.astro'
+import VisionMission from './VisionMission.astro'
+import ServicesOverview from './ServicesOverview.astro'
+import CTASection from './CTASection.astro'
+
+interface Props {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+
+/* ── Portfolio Section Data ── */
+const projects = [
+  {
+    titleKey: 'portfolio.project1.title',
+    descKey: 'portfolio.project1.desc',
+    clientKey: 'portfolio.project1.client',
+    technologies: ['PHP', 'PostgreSQL', 'Redis'],
+    year: '2025',
+    month: '11',
+    featured: true,
+    gradient: 'from-blue-600 to-indigo-700',
+    icon: 'fas fa-building-columns',
+    url: 'https://alanyatekmer.com',
+  },
+  {
+    titleKey: 'portfolio.project2.title',
+    descKey: 'portfolio.project2.desc',
+    clientKey: 'portfolio.project2.client',
+    technologies: ['PHP', 'PostgreSQL'],
+    year: '2025',
+    month: '03',
+    featured: false,
+    gradient: 'from-rose-500 to-pink-600',
+    icon: 'fas fa-brain',
+    url: 'https://psikologmervesimsek.com.tr',
+  },
+  {
+    titleKey: 'portfolio.project3.title',
+    descKey: 'portfolio.project3.desc',
+    clientKey: 'portfolio.project3.client',
+    technologies: ['PHP', 'PostgreSQL'],
+    year: '2025',
+    month: '03',
+    featured: false,
+    gradient: 'from-emerald-500 to-teal-600',
+    icon: 'fas fa-apple-whole',
+    url: 'https://alanyadiyetisyen.com.tr',
+  },
+  {
+    titleKey: 'portfolio.project4.title',
+    descKey: 'portfolio.project4.desc',
+    clientKey: 'portfolio.project4.client',
+    technologies: ['React', 'Go', 'PostgreSQL'],
+    year: '2025',
+    month: '03',
+    featured: false,
+    gradient: 'from-amber-600 to-orange-700',
+    icon: 'fas fa-industry',
+    url: 'https://ardasanayi.com.tr',
+  },
+  {
+    titleKey: 'portfolio.project5.title',
+    descKey: 'portfolio.project5.desc',
+    clientKey: 'portfolio.project5.client',
+    technologies: ['Astro', 'Tailwind CSS', 'JavaScript'],
+    year: '2025',
+    month: '03',
+    featured: true,
+    gradient: 'from-sky-600 to-blue-700',
+    icon: 'fas fa-rocket',
+    url: 'https://tersanala.com.tr',
+  },
+  {
+    titleKey: 'portfolio.project6.title',
+    descKey: 'portfolio.project6.desc',
+    clientKey: 'portfolio.project6.client',
+    technologies: ['React', 'Node.js', 'PostgreSQL'],
+    year: '2025',
+    month: '03',
+    featured: true,
+    gradient: 'from-violet-600 to-purple-700',
+    icon: 'fas fa-file-contract',
+    url: 'https://seffafdanismanlik.com',
+  },
+  {
+    titleKey: 'portfolio.project7.title',
+    descKey: 'portfolio.project7.desc',
+    clientKey: 'portfolio.project7.client',
+    technologies: ['React', 'Go', 'PostgreSQL'],
+    year: '2025',
+    month: '03',
+    featured: false,
+    gradient: 'from-cyan-600 to-teal-700',
+    icon: 'fas fa-file-signature',
+    url: 'https://alanyaeimzamerkezi.com',
+  },
+  {
+    titleKey: 'portfolio.project8.title',
+    descKey: 'portfolio.project8.desc',
+    clientKey: 'portfolio.project8.client',
+    technologies: ['React', 'Go', 'PostgreSQL', 'Redis'],
+    year: '2025',
+    month: '03',
+    featured: true,
+    gradient: 'from-slate-700 to-zinc-800',
+    icon: 'fas fa-database',
+    url: 'https://zsoftrade.com',
+  },
+]
+
+/* ── Certifications Section Data ── */
+const certifications = [
+  {
+    titleKey: 'certs.cert2.title',
+    descKey: 'certs.cert2.desc',
+    dateKey: 'certs.cert2.date',
+    icon: 'fas fa-user-secret',
+    gradient: 'from-red-600 to-rose-700',
+    color: 'border-rose-400',
+    issuer: 'Cisco',
+    credlyUrl: 'https://www.credly.com/badges/f610f404-ad21-44c7-83fa-3dd3919c072f',
+    skills: ['SOC Operations', 'Incident Response', 'Computer Forensics', 'Cryptography', 'Malware Analysis', 'Network Intrusion Analysis', 'Threat Detection', 'Security Monitoring'],
+  },
+  {
+    titleKey: 'certs.cert1.title',
+    descKey: 'certs.cert1.desc',
+    dateKey: 'certs.cert1.date',
+    icon: 'fas fa-shield-halved',
+    gradient: 'from-blue-500 to-indigo-600',
+    color: 'border-blue-400',
+    issuer: 'Cisco',
+    credlyUrl: 'https://www.credly.com/badges/c53155a7-7970-49eb-a01f-b13affe773ce',
+    skills: ['Cyber Best Practices', 'Cybersecurity', 'Network Vulnerabilities', 'Privacy & Data Confidentiality', 'Threat Detection'],
+  },
+]
+
+/* ── Contact Section Data ── */
+const contactInfo = [
+  {
+    icon: 'fas fa-envelope',
+    label: 'E-mail',
+    value: 'info@devrimsoft.com',
+    href: 'mailto:info@devrimsoft.com',
+  },
+  {
+    icon: 'fas fa-phone',
+    label: t('contact.info.phone'),
+    value: '+90 538 691 22 83',
+    href: 'tel:+905386912283',
+  },
+  {
+    icon: 'fab fa-linkedin-in',
+    label: 'LinkedIn',
+    value: 'DevrimSoft',
+    href: 'https://www.linkedin.com/company/110658134/',
+  },
+  {
+    icon: 'fab fa-whatsapp',
+    label: 'WhatsApp',
+    value: '+90 538 691 22 83',
+    href: 'https://wa.me/905386912283',
+  },
+]
+---
+
+<BaseLayout
+  title="DevrimSoft"
+  description={t('hero.subtitle')}
+  lang={lang}
+  currentPage="home"
+>
+  {/* ════════════════════════════════════════════════ */}
+  {/* HERO                                            */}
+  {/* ════════════════════════════════════════════════ */}
+  <HeroSection lang={lang} />
+
+  {/* ════════════════════════════════════════════════ */}
+  {/* ABOUT — Vision, Mission, Story, Stats, Values   */}
+  {/* ════════════════════════════════════════════════ */}
+  <section id="about" class="scroll-mt-16 sm:scroll-mt-20">
+    <!-- Vision & Mission — Editorial style -->
+    <div class="section-padding bg-white">
+      <div class="container-wide">
+        <VisionMission lang={lang} />
+      </div>
+    </div>
+
+    <!-- Story — Blockquote style with decorative quote -->
+    <div class="py-10 bg-gradient-to-b from-white to-navy-50/30 sm:py-16">
+      <div class="container-wide">
+        <div class="mx-auto max-w-4xl">
+          <div class="relative rounded-2xl border border-navy-100 bg-white p-6 sm:p-10 lg:p-14">
+            <!-- Decorative quote mark -->
+            <div class="absolute -top-4 left-6 flex h-8 w-8 items-center justify-center rounded-lg bg-accent-500 text-white shadow-lg sm:-top-5 sm:left-8 sm:h-10 sm:w-10 sm:rounded-xl">
+              <i class="fas fa-quote-left text-xs sm:text-sm"></i>
+            </div>
+
+            <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-navy-200 bg-navy-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-600 sm:mb-4 sm:px-4 sm:text-xs">
+              <i class="fas fa-book-open text-accent-500"></i>
+              {t('about.story.title')}
+            </div>
+            <h2 class="heading-3 text-navy-900">{t('about.story.title')}</h2>
+            <p class="mt-4 text-base leading-relaxed text-navy-600 sm:mt-6 sm:text-lg">
+              {t('about.story.text')}
+            </p>
+
+            <!-- Tax Certificate -->
+            <div class="mt-6 rounded-xl border border-emerald-200 bg-emerald-50/50 p-4 sm:mt-8 sm:p-5">
+              <div class="mb-4 flex items-center gap-3">
+                <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 sm:h-12 sm:w-12">
+                  <i class="fas fa-file-invoice text-lg text-emerald-600"></i>
+                </div>
+                <div>
+                  <div class="mb-0.5 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700">
+                    <i class="fas fa-circle-check text-[9px]"></i>
+                    {t('about.taxCert.badge')}
+                  </div>
+                  <p class="text-sm font-medium text-navy-700 sm:text-base">{t('about.taxCert.desc')}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Team -->
+    <div class="section-padding bg-navy-50/30">
+      <div class="container-wide">
+        <div class="text-center">
+          <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-navy-200 bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-600 sm:mb-4 sm:px-4 sm:text-xs">
+            <i class="fas fa-users text-accent-500"></i>
+            {t('team.badge')}
+          </div>
+          <h2 class="heading-2 text-navy-900">{t('team.title')}</h2>
+          <p class="mx-auto mt-3 max-w-2xl text-base text-navy-600 sm:mt-4 sm:text-lg">{t('team.subtitle')}</p>
+        </div>
+
+        <div class="mx-auto mt-8 grid max-w-6xl gap-5 sm:mt-14 sm:gap-8 sm:grid-cols-3">
+          {/* ── Devrim Tuncer ── */}
+          <article class="group relative overflow-hidden rounded-2xl border border-navy-100 bg-white text-center transition-all duration-300 hover:border-navy-200 hover:shadow-xl hover:shadow-navy-100/50 hover:-translate-y-1">
+            <div class="px-5 pt-5 sm:px-8 sm:pt-8">
+              <div class="relative mx-auto h-40 w-40 overflow-hidden rounded-2xl sm:h-64 sm:w-64">
+                <img
+                  src="https://view.devrimsoft.com/devrimsoft/devrim.jpeg"
+                  alt="Devrim Tuncer"
+                  class="h-full w-full object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="px-5 pb-5 pt-4 sm:px-8 sm:pb-8 sm:pt-6">
+              <h3 class="font-display text-lg font-bold text-navy-900 sm:text-2xl">{t('team.devrim.name')}</h3>
+              <p class="mt-1 flex items-center justify-center gap-2 text-xs font-semibold text-accent-600 sm:mt-2 sm:text-sm">
+                <i class="fas fa-code text-xs"></i>
+                {t('team.devrim.role')}
+              </p>
+              <p class="mt-2.5 text-xs leading-relaxed text-navy-600 sm:mt-4 sm:text-sm">{t('team.devrim.bio')}</p>
+              <div class="mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:mt-6 sm:gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-laptop-code text-[10px] text-accent-500"></i>
+                  Full-Stack
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-cloud text-[10px] text-accent-500"></i>
+                  DevOps
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-graduation-cap text-[10px] text-accent-500"></i>
+                  ALKU
+                </span>
+              </div>
+              <div class="mt-4 flex items-center justify-center gap-2.5 sm:mt-5 sm:gap-3">
+                <a href="mailto:devrim@devrimsoft.com" class="flex h-10 w-10 items-center justify-center rounded-lg border border-navy-200 text-navy-400 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white sm:h-9 sm:w-9" aria-label="E-mail">
+                  <i class="fas fa-envelope text-sm"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/devrim-tun%C3%A7er-218a55320/" target="_blank" rel="noopener noreferrer" class="flex h-10 w-10 items-center justify-center rounded-lg border border-navy-200 text-navy-400 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white sm:h-9 sm:w-9" aria-label="LinkedIn">
+                  <i class="fab fa-linkedin-in text-sm"></i>
+                </a>
+              </div>
+            </div>
+            <div class="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-accent-400 to-accent-600 transition-all duration-500 group-hover:w-full"></div>
+          </article>
+
+          {/* ── Devran Tuncer ── */}
+          <article class="group relative overflow-hidden rounded-2xl border border-navy-100 bg-white text-center transition-all duration-300 hover:border-navy-200 hover:shadow-xl hover:shadow-navy-100/50 hover:-translate-y-1">
+            <div class="px-5 pt-5 sm:px-8 sm:pt-8">
+              <div class="relative mx-auto h-40 w-40 overflow-hidden rounded-2xl sm:h-64 sm:w-64">
+                <img
+                  src="https://view.devrimsoft.com/devrimsoft/devran.jpeg"
+                  alt="Devran Tuncer"
+                  class="h-full w-full object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="px-5 pb-5 pt-4 sm:px-8 sm:pb-8 sm:pt-6">
+              <h3 class="font-display text-lg font-bold text-navy-900 sm:text-2xl">{t('team.devran.name')}</h3>
+              <p class="mt-1 flex items-center justify-center gap-2 text-xs font-semibold text-accent-600 sm:mt-2 sm:text-sm">
+                <i class="fas fa-shield-halved text-xs"></i>
+                {t('team.devran.role')}
+              </p>
+              <p class="mt-2.5 text-xs leading-relaxed text-navy-600 sm:mt-4 sm:text-sm">{t('team.devran.bio')}</p>
+              <div class="mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:mt-6 sm:gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-shield-halved text-[10px] text-accent-500"></i>
+                  Cyber Security
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-lock text-[10px] text-accent-500"></i>
+                  Pentesting
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-graduation-cap text-[10px] text-accent-500"></i>
+                  Anadolu U.
+                </span>
+              </div>
+              <div class="mt-4 flex items-center justify-center gap-2.5 sm:mt-5 sm:gap-3">
+                <a href="mailto:devran@devrimsoft.com" class="flex h-10 w-10 items-center justify-center rounded-lg border border-navy-200 text-navy-400 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white sm:h-9 sm:w-9" aria-label="E-mail">
+                  <i class="fas fa-envelope text-sm"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/devran-tun%C3%A7er-967812221/" target="_blank" rel="noopener noreferrer" class="flex h-10 w-10 items-center justify-center rounded-lg border border-navy-200 text-navy-400 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white sm:h-9 sm:w-9" aria-label="LinkedIn">
+                  <i class="fab fa-linkedin-in text-sm"></i>
+                </a>
+              </div>
+            </div>
+            <div class="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-accent-400 to-accent-600 transition-all duration-500 group-hover:w-full"></div>
+          </article>
+
+          {/* ── Cennet Kaş ── */}
+          <article class="group relative overflow-hidden rounded-2xl border border-navy-100 bg-white text-center transition-all duration-300 hover:border-navy-200 hover:shadow-xl hover:shadow-navy-100/50 hover:-translate-y-1">
+            <div class="px-5 pt-5 sm:px-8 sm:pt-8">
+              <div class="relative mx-auto h-40 w-40 overflow-hidden rounded-2xl sm:h-64 sm:w-64">
+                <img
+                  src="https://view.devrimsoft.com/devrimsoft/cennet.jpeg"
+                  alt="Cennet Kaş"
+                  class="h-full w-full object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="px-5 pb-5 pt-4 sm:px-8 sm:pb-8 sm:pt-6">
+              <h3 class="font-display text-lg font-bold text-navy-900 sm:text-2xl">{t('team.cennet.name')}</h3>
+              <p class="mt-1 flex items-center justify-center gap-2 text-xs font-semibold text-accent-600 sm:mt-2 sm:text-sm">
+                <i class="fas fa-pen-ruler text-xs"></i>
+                {t('team.cennet.role')}
+              </p>
+              <p class="mt-2.5 text-xs leading-relaxed text-navy-600 sm:mt-4 sm:text-sm">{t('team.cennet.bio')}</p>
+              <div class="mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:mt-6 sm:gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-pen-nib text-[10px] text-accent-500"></i>
+                  {t('team.cennet.skill1')}
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-palette text-[10px] text-accent-500"></i>
+                  {t('team.cennet.skill2')}
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-crown text-[10px] text-accent-500"></i>
+                  CEO
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-navy-50 px-2.5 py-1 text-[11px] font-medium text-navy-700 sm:px-3 sm:py-1.5 sm:text-xs">
+                  <i class="fas fa-comments text-[10px] text-accent-500"></i>
+                  {t('team.cennet.skill3')}
+                </span>
+              </div>
+              <div class="mt-4 flex items-center justify-center gap-2.5 sm:mt-5 sm:gap-3">
+                <a href="mailto:cennet@devrimsoft.com" class="flex h-10 w-10 items-center justify-center rounded-lg border border-navy-200 text-navy-400 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white sm:h-9 sm:w-9" aria-label="E-mail">
+                  <i class="fas fa-envelope text-sm"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/cennet-ka%C5%9F-9b4559386/" target="_blank" rel="noopener noreferrer" class="flex h-10 w-10 items-center justify-center rounded-lg border border-navy-200 text-navy-400 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white sm:h-9 sm:w-9" aria-label="LinkedIn">
+                  <i class="fab fa-linkedin-in text-sm"></i>
+                </a>
+              </div>
+            </div>
+            <div class="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-accent-400 to-accent-600 transition-all duration-500 group-hover:w-full"></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ════════════════════════════════════════════════ */}
+  {/* SERVICES — Bento Grid                           */}
+  {/* ════════════════════════════════════════════════ */}
+  <ServicesOverview lang={lang} />
+
+  {/* ════════════════════════════════════════════════ */}
+  {/* PRODUCTS — Our Solutions                         */}
+  {/* ════════════════════════════════════════════════ */}
+  <section id="products" class="section-padding bg-white">
+    <div class="container-wide">
+      <div class="text-center">
+        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-navy-200 bg-navy-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-600 sm:mb-4 sm:px-4 sm:text-xs">
+          <i class="fas fa-box-open text-accent-500"></i>
+          {t('products.badge')}
+        </div>
+        <h2 class="heading-2 text-navy-900">{t('products.title')}</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-base text-navy-600 sm:mt-4 sm:text-lg">{t('products.subtitle')}</p>
+      </div>
+
+      {/* R2 File Processor */}
+      <div class="mx-auto mt-8 max-w-5xl sm:mt-14">
+        <article class="group overflow-hidden rounded-2xl border border-navy-100 bg-white transition-all duration-300 hover:border-navy-200 hover:shadow-xl hover:shadow-navy-100/50">
+          {/* Header */}
+          <div class="relative flex items-center gap-4 border-b border-navy-100 bg-gradient-to-r from-navy-950 to-navy-800 p-5 sm:gap-6 sm:p-8">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-sm sm:h-16 sm:w-16">
+              <i class="fas fa-cloud-arrow-up text-xl sm:text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="font-display text-lg font-bold text-white sm:text-2xl">{t('products.r2.title')}</h3>
+              <div class="mt-1 flex flex-wrap items-center gap-2 sm:mt-1.5">
+                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-300 sm:text-xs">
+                  <i class="fas fa-circle text-[5px]"></i>
+                  v2.3
+                </span>
+                <span class="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[10px] font-medium text-white/70 sm:text-xs">
+                  Cloudflare R2
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Body */}
+          <div class="p-5 sm:p-8">
+            <p class="text-sm leading-relaxed text-navy-600 sm:text-base">{t('products.r2.desc')}</p>
+
+            {/* Features */}
+            <div class="mt-5 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4">
+              <div class="flex items-start gap-3 rounded-xl bg-navy-50/50 p-3.5 sm:p-4">
+                <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-500/10">
+                  <i class="fas fa-image text-sm text-blue-600"></i>
+                </div>
+                <p class="text-xs font-medium text-navy-700 sm:text-sm">{t('products.r2.feature1')}</p>
+              </div>
+              <div class="flex items-start gap-3 rounded-xl bg-navy-50/50 p-3.5 sm:p-4">
+                <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-rose-500/10">
+                  <i class="fas fa-shield-virus text-sm text-rose-600"></i>
+                </div>
+                <p class="text-xs font-medium text-navy-700 sm:text-sm">{t('products.r2.feature2')}</p>
+              </div>
+              <div class="flex items-start gap-3 rounded-xl bg-navy-50/50 p-3.5 sm:p-4">
+                <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-amber-500/10">
+                  <i class="fas fa-bolt text-sm text-amber-600"></i>
+                </div>
+                <p class="text-xs font-medium text-navy-700 sm:text-sm">{t('products.r2.feature3')}</p>
+              </div>
+              <div class="flex items-start gap-3 rounded-xl bg-navy-50/50 p-3.5 sm:p-4">
+                <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
+                  <i class="fas fa-key text-sm text-emerald-600"></i>
+                </div>
+                <p class="text-xs font-medium text-navy-700 sm:text-sm">{t('products.r2.feature4')}</p>
+              </div>
+            </div>
+
+            {/* Why use it */}
+            <div class="mt-6 sm:mt-8">
+              <h4 class="mb-3 text-sm font-bold text-navy-900 sm:mb-4 sm:text-base">{t('products.r2.whyTitle')}</h4>
+              <ul class="space-y-2.5 sm:space-y-3">
+                <li class="flex items-start gap-2.5">
+                  <i class="fas fa-check-circle mt-0.5 text-xs text-emerald-500"></i>
+                  <span class="text-xs leading-relaxed text-navy-600 sm:text-sm">{t('products.r2.why1')}</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <i class="fas fa-check-circle mt-0.5 text-xs text-emerald-500"></i>
+                  <span class="text-xs leading-relaxed text-navy-600 sm:text-sm">{t('products.r2.why2')}</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <i class="fas fa-check-circle mt-0.5 text-xs text-emerald-500"></i>
+                  <span class="text-xs leading-relaxed text-navy-600 sm:text-sm">{t('products.r2.why3')}</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Setup service notice + CTA */}
+            <div class="mt-6 flex flex-col gap-4 rounded-xl border border-accent-200 bg-accent-50/50 p-4 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+              <div class="flex items-start gap-3">
+                <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-accent-500/10 sm:h-10 sm:w-10">
+                  <i class="fas fa-screwdriver-wrench text-sm text-accent-600"></i>
+                </div>
+                <p class="text-xs leading-relaxed text-navy-700 sm:text-sm">{t('products.r2.setup')}</p>
+              </div>
+              <a
+                href="#contact"
+                class="btn-accent inline-flex flex-shrink-0 items-center justify-center gap-2 self-start px-5 py-2.5 text-sm sm:self-center"
+              >
+                <i class="fas fa-paper-plane text-xs"></i>
+                {t('products.contact')}
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {/* ════════════════════════════════════════════════ */}
+  {/* PORTFOLIO — Featured + Grid Hybrid              */}
+  {/* ════════════════════════════════════════════════ */}
+  <section id="portfolio" class="section-padding bg-white">
+    <div class="container-wide">
+      <div class="text-center">
+        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-navy-200 bg-navy-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-600 sm:mb-4 sm:px-4 sm:text-xs">
+          <i class="fas fa-briefcase text-accent-500"></i>
+          {t('portfolio.title')}
+        </div>
+        <h2 class="heading-2 text-navy-900">{t('portfolio.title')}</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-base text-navy-600 sm:mt-4 sm:text-lg">{t('portfolio.subtitle')}</p>
+      </div>
+
+      <!-- Projects -->
+      <div class="mx-auto mt-8 grid gap-5 sm:mt-12 sm:gap-8 lg:grid-cols-2">
+        {projects.map((project) => (
+          <article class="group relative overflow-hidden rounded-2xl border border-navy-100 bg-white p-5 transition-all duration-300 hover:border-navy-200 hover:shadow-2xl hover:shadow-navy-100/50 hover:-translate-y-1 sm:p-8">
+            <!-- Top row: icon + meta -->
+            <div class="flex items-start gap-4 sm:gap-5">
+              <div class={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${project.gradient} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 sm:h-14 sm:w-14`}>
+                <i class:list={[project.icon, 'text-lg sm:text-xl']}></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="inline-flex items-center gap-1.5 text-xs text-navy-500">
+                    <i class="fas fa-building text-[10px] text-navy-400"></i>
+                    {t(project.clientKey)}
+                  </span>
+                  <span class="h-3.5 w-px bg-navy-200"></span>
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-navy-50 px-2.5 py-0.5 text-[11px] font-medium text-navy-600">
+                    <i class="far fa-calendar text-[10px]"></i>
+                    {project.month}/{project.year}
+                  </span>
+                </div>
+                <h3 class="mt-2 font-display text-lg font-bold text-navy-900 transition-colors group-hover:text-accent-600 sm:text-xl">
+                  {t(project.titleKey)}
+                </h3>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <p class="mt-4 text-sm leading-relaxed text-navy-600">
+              {t(project.descKey)}
+            </p>
+
+            <!-- Tech tags -->
+            <div class="mt-4 flex flex-wrap gap-1.5 sm:mt-5">
+              {project.technologies.map((tech) => (
+                <span class="rounded-lg bg-navy-50 px-2.5 py-1 text-xs font-medium text-navy-700">
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <!-- Visit link -->
+            {project.url && (
+              <a href={project.url} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 rounded-lg border border-navy-200 px-3 py-2 text-[11px] font-semibold text-navy-700 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white sm:mt-6 sm:px-4 sm:text-xs">
+                <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                {t('portfolio.visitSite')}
+              </a>
+            )}
+
+            <!-- Hover accent line -->
+            <div class="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-accent-400 to-accent-600 transition-all duration-500 group-hover:w-full"></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ════════════════════════════════════════════════ */}
+  {/* CERTIFICATIONS — Timeline Layout                */}
+  {/* ════════════════════════════════════════════════ */}
+  <section id="certifications" class="section-padding bg-navy-50/30">
+    <div class="container-wide">
+      <div class="text-center">
+        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-navy-200 bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-600 sm:mb-4 sm:px-4 sm:text-xs">
+          <i class="fas fa-certificate text-accent-500"></i>
+          {t('certs.title')}
+        </div>
+        <h2 class="heading-2 text-navy-900">{t('certs.title')}</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-base text-navy-600 sm:mt-4 sm:text-lg">{t('certs.subtitle')}</p>
+      </div>
+
+      <!-- Timeline -->
+      <div class="relative mx-auto mt-8 max-w-4xl sm:mt-16">
+        <!-- Vertical timeline line (desktop only) -->
+        <div class="timeline-line hidden lg:block"></div>
+
+        <div class="space-y-5 sm:space-y-8 lg:space-y-16">
+          {certifications.map((cert, idx) => (
+            <div class="relative grid items-start gap-8 lg:grid-cols-2">
+              {/* Date + Issuer side — desktop only */}
+              <div class:list={[
+                'hidden lg:flex flex-col gap-3',
+                idx % 2 === 0 ? 'lg:text-right lg:pr-12' : 'lg:order-last lg:pl-12',
+              ]}>
+                <span class:list={[
+                  'inline-flex items-center gap-1.5 text-sm font-medium text-navy-500',
+                  idx % 2 === 0 ? 'lg:justify-end' : 'lg:justify-start',
+                ]}>
+                  <i class="far fa-calendar text-xs"></i>
+                  {t(cert.dateKey)}
+                </span>
+                <span class:list={[
+                  'inline-flex w-fit items-center gap-1.5 rounded-full bg-navy-50 px-3 py-1 text-xs font-semibold text-navy-700',
+                  idx % 2 === 0 ? 'lg:ml-auto' : '',
+                ]}>
+                  <i class="fas fa-award text-[10px] text-accent-500"></i>
+                  {cert.issuer}
+                </span>
+                <span class:list={[
+                  'inline-flex w-fit items-center gap-1.5 text-xs text-navy-400',
+                  idx % 2 === 0 ? 'lg:ml-auto' : '',
+                ]}>
+                  <i class="fas fa-user text-[10px]"></i>
+                  Devran Tuncer
+                </span>
+              </div>
+
+              {/* Timeline dot (desktop only) */}
+              <div class:list={['timeline-dot hidden lg:block', cert.color]} style="top: 12px;"></div>
+
+              {/* Content card */}
+              <div class:list={[
+                idx % 2 === 0 ? 'lg:pl-12' : 'lg:order-first lg:pr-12',
+              ]}>
+                <article class="group relative overflow-hidden rounded-2xl border border-navy-100 bg-white p-5 transition-all duration-300 hover:border-navy-200 hover:shadow-xl hover:shadow-navy-100/50 sm:p-6 lg:p-8">
+                  {/* Mobile: integrated metadata bar */}
+                  <div class="mb-3 flex flex-wrap items-center gap-2 lg:hidden sm:mb-4">
+                    <span class="inline-flex items-center gap-1.5 text-xs font-medium text-navy-500">
+                      <i class="far fa-calendar text-[10px]"></i>
+                      {t(cert.dateKey)}
+                    </span>
+                    <span class="h-3.5 w-px bg-navy-200"></span>
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-navy-50 px-2.5 py-0.5 text-[11px] font-semibold text-navy-700">
+                      <i class="fas fa-award text-[9px] text-accent-500"></i>
+                      {cert.issuer}
+                    </span>
+                    <span class="h-3.5 w-px bg-navy-200"></span>
+                    <span class="inline-flex items-center gap-1.5 text-[11px] text-navy-400">
+                      <i class="fas fa-user text-[9px]"></i>
+                      Devran Tuncer
+                    </span>
+                  </div>
+
+                  <div class="flex items-start gap-3 sm:gap-4">
+                    <div class={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${cert.gradient} text-white shadow-sm sm:h-12 sm:w-12`}>
+                      <i class:list={[cert.icon, 'text-base sm:text-lg']}></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <h3 class="font-display text-base font-bold text-navy-900 transition-colors group-hover:text-accent-600 sm:text-lg">
+                        {t(cert.titleKey)}
+                      </h3>
+                      <p class="mt-1.5 text-sm leading-relaxed text-navy-600 sm:mt-2">
+                        {t(cert.descKey)}
+                      </p>
+
+                      {/* Skills tags */}
+                      <div class="mt-3 sm:mt-4">
+                        <p class="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-400 sm:mb-2 sm:text-xs">{t('certs.skills')}</p>
+                        <div class="flex flex-wrap gap-1 sm:gap-1.5">
+                          {cert.skills.map((skill) => (
+                            <span class="rounded-md bg-navy-50 px-2 py-0.5 text-[10px] font-medium text-navy-600 sm:rounded-lg sm:px-2.5 sm:py-1 sm:text-[11px]">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Verify link */}
+                      <a
+                        href={cert.credlyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="mt-3 inline-flex items-center gap-2 rounded-lg border border-navy-200 px-3 py-1.5 text-[11px] font-semibold text-navy-700 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white sm:mt-4 sm:px-4 sm:py-2 sm:text-xs"
+                      >
+                        <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                        {t('certs.verify')} — Credly
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-accent-400 to-accent-600 transition-all duration-500 group-hover:w-full"></div>
+                </article>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ════════════════════════════════════════════════ */}
+  {/* CONTACT — Modern Layout                         */}
+  {/* ════════════════════════════════════════════════ */}
+  <section id="contact" class="section-padding relative bg-gradient-to-b from-white to-navy-50/20">
+    <div class="container-wide">
+      <div class="text-center">
+        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-navy-200 bg-navy-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-600 sm:mb-4 sm:px-4 sm:text-xs">
+          <i class="fas fa-envelope text-accent-500"></i>
+          {t('contact.title')}
+        </div>
+        <h2 class="heading-2 text-navy-900">{t('contact.title')}</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-base text-navy-600 sm:mt-4 sm:text-lg">{t('contact.subtitle')}</p>
+      </div>
+
+      <!-- Contact Info + Social -->
+      <div class="mx-auto mt-8 max-w-3xl sm:mt-14">
+        <div class="grid gap-3 sm:grid-cols-2 sm:gap-4">
+          {contactInfo.map((info) => (
+            <div class="group flex items-center gap-3 rounded-xl border border-navy-100 bg-white p-4 transition-all duration-200 hover:border-navy-200 hover:shadow-md sm:gap-4 sm:p-5">
+              <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-navy-50 transition-colors group-hover:bg-accent-500/10 sm:h-11 sm:w-11">
+                <i class:list={[info.icon, 'text-sm text-navy-500 transition-colors group-hover:text-accent-500']}></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-[11px] text-navy-400 sm:text-xs">{info.label}</p>
+                {info.href ? (
+                  <a href={info.href} target={info.href.startsWith('http') ? '_blank' : undefined} rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined} class="block truncate text-sm font-semibold text-navy-800 transition-colors hover:text-accent-600">
+                    {info.value}
+                  </a>
+                ) : (
+                  <div class="truncate text-sm font-semibold text-navy-800">{info.value}</div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Social -->
+        <div class="mt-6 flex items-center justify-center gap-2.5 sm:mt-8 sm:gap-3">
+          <a href="https://github.com/devrim-1283" target="_blank" rel="noopener noreferrer" class="flex h-11 w-11 items-center justify-center rounded-xl border border-navy-200 text-navy-500 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white" aria-label="GitHub">
+            <i class="fab fa-github text-lg"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/110658134/" target="_blank" rel="noopener noreferrer" class="flex h-11 w-11 items-center justify-center rounded-xl border border-navy-200 text-navy-500 transition-all duration-200 hover:border-accent-500 hover:bg-accent-500 hover:text-white" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in text-lg"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Office Locations with Maps -->
+      <div class="mt-8 sm:mt-16">
+        <div class="mb-5 text-center sm:mb-8">
+          <h3 class="font-display text-base font-bold text-navy-900 sm:text-xl">{t('contact.offices.title')}</h3>
+        </div>
+        <div class="grid gap-4 sm:gap-8 md:grid-cols-2">
+          <!-- Antalya Office -->
+          <div class="overflow-hidden rounded-2xl border border-navy-100 bg-white">
+            <div class="p-4 sm:p-6">
+              <div class="flex items-center gap-3">
+                <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-accent-500 to-amber-600 text-white sm:h-10 sm:w-10">
+                  <i class="fas fa-location-dot text-xs sm:text-sm"></i>
+                </div>
+                <div>
+                  <h4 class="font-display text-sm font-bold text-navy-900 sm:text-base">{t('contact.offices.antalya.title')}</h4>
+                  <p class="text-[11px] text-navy-500 sm:text-xs">{t('contact.offices.antalya.desc')}</p>
+                </div>
+              </div>
+            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3206.1384089900225!2d32.08277081192241!3d36.52665507221093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14dc9bb327c9f08d%3A0x6195c04f9208f83b!2sDevrimSoft!5e0!3m2!1str!2str!4v1772534316158!5m2!1str!2str"
+              class="h-40 w-full border-0 sm:h-56"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="DevrimSoft Antalya Office"
+            ></iframe>
+          </div>
+
+          <!-- Istanbul Office -->
+          <div class="overflow-hidden rounded-2xl border border-navy-100 bg-white">
+            <div class="p-4 sm:p-6">
+              <div class="flex items-center gap-3">
+                <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white sm:h-10 sm:w-10">
+                  <i class="fas fa-location-dot text-xs sm:text-sm"></i>
+                </div>
+                <div>
+                  <h4 class="font-display text-sm font-bold text-navy-900 sm:text-base">{t('contact.offices.istanbul.title')}</h4>
+                  <p class="text-[11px] text-navy-500 sm:text-xs">{t('contact.offices.istanbul.desc')}</p>
+                </div>
+              </div>
+            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.5212060029003!2d28.693692112107016!3d41.03572987122719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa74c167d5e81%3A0xfa87d2afa1947ce6!2sDevrimSoft!5e0!3m2!1str!2str!4v1772534334435!5m2!1str!2str"
+              class="h-40 w-full border-0 sm:h-56"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="DevrimSoft Istanbul Office"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ════════════════════════════════════════════════ */}
+  {/* CTA                                             */}
+  {/* ════════════════════════════════════════════════ */}
+  <CTASection lang={lang} />
+</BaseLayout>

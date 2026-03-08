@@ -1,0 +1,25 @@
+# DevrimSoft — https://devrimsoft.com
+
+User-agent: *
+Allow: /
+Disallow: /cdn-cgi/
+
+# Sitemap
+Sitemap: https://devrimsoft.com/sitemap-index.xml
+
+# LLM / AI Crawlers
+# Makine okuma dostu içerik için bkz: /llms.txt
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /

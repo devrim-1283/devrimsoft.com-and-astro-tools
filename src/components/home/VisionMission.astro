@@ -1,0 +1,59 @@
+---
+import type { Locale } from '@/i18n/locales'
+import { useTranslations } from '@/i18n/utils'
+
+interface Props {
+  lang: Locale
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+---
+
+<div class="space-y-14 sm:space-y-20">
+  <!-- Section header -->
+  <div class="mx-auto max-w-3xl text-center">
+    <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-navy-200 bg-navy-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-600 sm:mb-4 sm:px-4 sm:text-xs">
+      <i class="fas fa-compass text-accent-500"></i>
+      {t('about.title')}
+    </div>
+    <h2 class="heading-2 text-navy-900">{t('about.title')}</h2>
+    <p class="mx-auto mt-3 max-w-2xl text-base text-navy-600 sm:mt-4 sm:text-lg">{t('about.subtitle')}</p>
+  </div>
+
+  <!-- Vision — Editorial style -->
+  <div class="grid items-start gap-4 sm:gap-8 lg:grid-cols-12">
+    <div class="lg:col-span-2">
+      <span class="font-display text-5xl font-bold text-navy-100 sm:text-7xl lg:text-8xl">01</span>
+    </div>
+    <div class="lg:col-span-10">
+      <div class="border-l-4 border-navy-800 pl-5 sm:pl-8">
+        <div class="inline-flex items-center gap-2 rounded-full bg-navy-800 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white sm:px-4 sm:text-xs">
+          <i class="fas fa-eye text-accent-300"></i>
+          {t('vision.label')}
+        </div>
+        <p class="mt-4 text-lg leading-relaxed text-navy-700 sm:mt-6 sm:text-2xl">
+          {t('vision.text')}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission — Editorial style -->
+  <div class="grid items-start gap-4 sm:gap-8 lg:grid-cols-12">
+    <div class="order-first lg:order-last lg:col-span-2 lg:text-right">
+      <span class="font-display text-5xl font-bold text-accent-100 sm:text-7xl lg:text-8xl">02</span>
+    </div>
+    <div class="lg:col-span-10">
+      <div class="border-l-4 border-accent-500 pl-5 sm:pl-8">
+        <div class="inline-flex items-center gap-2 rounded-full bg-accent-500 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white sm:px-4 sm:text-xs">
+          <i class="fas fa-rocket"></i>
+          {t('mission.label')}
+        </div>
+        <p class="mt-4 text-lg leading-relaxed text-navy-700 sm:mt-6 sm:text-2xl">
+          {t('mission.text')}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
