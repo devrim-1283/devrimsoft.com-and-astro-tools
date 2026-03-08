@@ -1,0 +1,1090 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <!-- HEADER -->
+  <header class="hdr">
+    <div class="hdr-in">
+      <a href="https://devrimsoft.com" class="logo" target="_blank" rel="noopener">
+        <img src="https://view.devrimsoft.com/logo%20(1)%20(1).png" alt="DevrimSoft" width="95" height="95" class="logo-img" />
+        <span class="logo-t">DevrimSoft</span>
+        <span class="logo-sep">/</span>
+        <span class="logo-sub" data-i18n="app.title">Password Generator</span>
+      </a>
+      <div class="hdr-r">
+        <select id="lang-sel" class="lang-sel">
+          <option value="en">EN</option>
+          <option value="tr">TR</option>
+          <option value="de">DE</option>
+          <option value="ru">RU</option>
+          <option value="uk">UK</option>
+          <option value="es">ES</option>
+        </select>
+        <button id="theme-btn" class="th-btn" aria-label="Theme">
+          <svg class="ic-sun" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="4"/><path d="M10 2v2M10 16v2M3.5 3.5l1.4 1.4M15.1 15.1l1.4 1.4M2 10h2M16 10h2M3.5 16.5l1.4-1.4M15.1 4.9l1.4-1.4"/></svg>
+          <svg class="ic-moon" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.3 11.1A7.5 7.5 0 118.9 2.7a6 6 0 008.4 8.4z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- TABS -->
+  <nav class="tabs">
+    <div class="tabs-in">
+      <button class="tab on" data-tab="password"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="8" width="12" height="8" rx="2"/><path d="M6 8V5.5a3 3 0 116 0V8"/></svg><span data-i18n="nav.password">Password</span></button>
+      <button class="tab" data-tab="strength"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2l5 2.5v4c0 3.5-2 5.5-5 7-3-1.5-5-3.5-5-7v-4z"/></svg><span data-i18n="nav.strength">Strength</span></button>
+      <button class="tab" data-tab="jwt"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M2 7h14M5 11h4"/></svg><span data-i18n="nav.jwt">JWT</span></button>
+      <button class="tab" data-tab="hash"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6.5h10M4 11.5h10M7 3v12M11 3v12"/></svg><span data-i18n="nav.hash">Hashes</span></button>
+      <button class="tab" data-tab="token"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="7" r="4"/><path d="M9 11v5M7 13h4M7 15h4"/></svg><span data-i18n="nav.token">Tokens</span></button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="wrap">
+
+    <!-- PASSWORD -->
+    <section id="p-password" class="pnl on">
+      <h2 class="sec-title" data-i18n="password.title">Password Generator</h2>
+
+      <!-- output -->
+      <div class="pw-box">
+        <div class="pw-out" id="pw-out"><span class="pw-ph" data-i18n="password.placeholder">Click generate</span></div>
+        <div class="pw-side">
+          <span class="pw-len" id="pw-len"></span>
+          <button class="cpbtn" id="cp-pw" title="Copy"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button>
+        </div>
+      </div>
+
+      <!-- strength mini -->
+      <div class="pw-str" id="pw-str" style="display:none">
+        <div class="pw-str-track"><div class="pw-str-fill" id="pw-str-fill"></div></div>
+        <span class="pw-str-lbl" id="pw-str-lbl"></span>
+      </div>
+
+      <!-- controls -->
+      <div class="card">
+        <div class="rng-group">
+          <div class="rng-top"><label data-i18n="password.length">Length</label><input type="number" id="pw-num" class="rng-num" min="4" max="250" value="20" /></div>
+          <input type="range" id="pw-rng" class="rng" min="4" max="250" value="20" />
+          <div class="rng-marks"><span>4</span><span>50</span><span>100</span><span>150</span><span>200</span><span>250</span></div>
+        </div>
+        <div class="chk-grid">
+          <label class="chk"><input type="checkbox" id="o-up" checked /><span class="chk-box"></span><span data-i18n="password.uppercase">Uppercase (A-Z)</span></label>
+          <label class="chk"><input type="checkbox" id="o-lo" checked /><span class="chk-box"></span><span data-i18n="password.lowercase">Lowercase (a-z)</span></label>
+          <label class="chk"><input type="checkbox" id="o-nu" checked /><span class="chk-box"></span><span data-i18n="password.numbers">Numbers (0-9)</span></label>
+          <label class="chk"><input type="checkbox" id="o-sy" checked /><span class="chk-box"></span><span data-i18n="password.symbols">Symbols (!@#$%)</span></label>
+          <label class="chk"><input type="checkbox" id="o-ex" /><span class="chk-box"></span><span data-i18n="password.excludeAmbiguous">Exclude ambiguous</span></label>
+        </div>
+        <!-- Custom symbols toggle -->
+        <button class="sym-toggle" id="sym-toggle">
+          <svg class="sym-toggle-ico" viewBox="0 0 18 18" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v12M3 9h12"/></svg>
+          <span data-i18n="password.customSymbols">Custom symbols</span>
+          <svg class="sym-chevron" viewBox="0 0 18 18" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 7 9 11 13 7"/></svg>
+        </button>
+        <div class="sym-custom" id="sym-wrap" style="display:none;">
+          <div class="sym-row">
+            <input type="text" id="sym-inp" class="inp mono sym-inp" value="!@#$%^&*()_+-=[]{}|;:,.<>?/~`" spellcheck="false" />
+            <button class="sym-reset" id="sym-reset" title="Reset" data-i18n-title="password.resetSymbols">
+              <svg viewBox="0 0 18 18" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 3.5A7 7 0 1016 9"/><polyline points="16 2 16 5 13 5"/></svg>
+            </button>
+          </div>
+          <div class="sym-presets">
+            <button class="sym-pre" data-syms=".">.</button>
+            <button class="sym-pre" data-syms=".-_">. - _</button>
+            <button class="sym-pre" data-syms="!@#$%">!@#$%</button>
+            <button class="sym-pre" data-syms="!@#$%^&*">!@#$%^&*</button>
+            <button class="sym-pre" data-syms="!@#$%^&*()_+-=">!@#$%^&*()_+-=</button>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button id="btn-gen" class="btn">
+            <svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 3.5A7 7 0 1016 9"/><polyline points="16 2 16 5 13 5"/></svg>
+            <span data-i18n="password.generate">Generate Password</span>
+          </button>
+          <button id="btn-jwt-secret" class="btn btn-secondary">
+            <svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="12" height="7" rx="2"/><path d="M6 8V5a3 3 0 016 0v3"/></svg>
+            <span data-i18n="password.jwtSecret">JWT Secret Key</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"><svg viewBox="0 0 18 18" width="14" height="14" fill="none" stroke="var(--green)" stroke-width="2"><polyline points="3 9 7 13 15 5"/></svg><span data-i18n="common.copied">Copied!</span></div>
+    </section>
+
+    <!-- STRENGTH -->
+    <section id="p-strength" class="pnl">
+      <h2 class="sec-title" data-i18n="strength.title">Password Strength Checker</h2>
+      <div class="card">
+        <div class="inp-wrap">
+          <input type="text" id="s-inp" class="inp mono" autocomplete="off" spellcheck="false" data-i18n-placeholder="strength.placeholder" placeholder="Enter a password to analyze..." />
+          <button class="inp-clr" id="s-clr"><svg viewBox="0 0 18 18" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5l8 8M13 5l-8 8"/></svg></button>
+        </div>
+      </div>
+      <div id="s-res" style="display:none" class="s-res">
+        <div class="s-meter"><div class="s-meter-track"><div class="s-meter-fill" id="s-fill"></div></div><div class="s-meter-lbl" id="s-lbl"></div></div>
+        <div class="stat-row">
+          <div class="stat"><div class="stat-k" data-i18n="strength.entropy">Entropy</div><div class="stat-v mono" id="st-ent">0</div><div class="stat-u" data-i18n="strength.bits">bits</div></div>
+          <div class="stat"><div class="stat-k" data-i18n="strength.charsetSize">Charset</div><div class="stat-v mono" id="st-cs">0</div></div>
+          <div class="stat"><div class="stat-k" data-i18n="strength.crackTime">Crack Time</div><div class="stat-v mono small" id="st-ct">&mdash;</div></div>
+        </div>
+        <div class="tips"><h4 data-i18n="strength.tips">Tips</h4><ul>
+          <li data-i18n="strength.tip.length">Use at least 12 characters</li>
+          <li data-i18n="strength.tip.mix">Mix uppercase, lowercase, numbers &amp; symbols</li>
+          <li data-i18n="strength.tip.common">Avoid common words and patterns</li>
+          <li data-i18n="strength.tip.unique">Use unique passwords for each account</li>
+        </ul></div>
+      </div>
+    </section>
+
+    <!-- JWT -->
+    <section id="p-jwt" class="pnl">
+      <h2 class="sec-title" data-i18n="jwt.title">JWT Token Generator</h2>
+
+      <!-- Quick JWT -->
+      <button id="btn-jwt-quick" class="btn btn-quick">
+        <svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L5 10l3 1 -1 5 8-8-3-1z"/></svg>
+        <span data-i18n="jwt.quick">Quick JWT</span>
+        <span class="btn-hint" data-i18n="jwt.quickHint">one click, random values</span>
+      </button>
+
+      <div class="jwt-divider"><span data-i18n="jwt.or">or customize</span></div>
+
+      <div class="card vstack">
+        <!-- Header settings -->
+        <div class="jwt-header-row">
+          <div class="fld flex1">
+            <label data-i18n="jwt.algorithm">Algorithm</label>
+            <select id="jwt-alg" class="sel">
+              <option value="HS256" selected>HS256</option>
+              <option value="HS384">HS384</option>
+              <option value="HS512">HS512</option>
+            </select>
+          </div>
+          <div class="fld flex1">
+            <label data-i18n="jwt.type">Type</label>
+            <select id="jwt-typ" class="sel">
+              <option value="JWT" selected>JWT</option>
+              <option value="JWS">JWS</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Payload claims -->
+        <div class="fld">
+          <label data-i18n="jwt.claims">Payload Claims</label>
+          <div class="jwt-claims">
+            <div class="jwt-claim-row">
+              <span class="jwt-claim-key">sub</span>
+              <input type="text" id="jwt-sub" class="inp mono jwt-claim-inp" placeholder="1234567890" spellcheck="false" />
+            </div>
+            <div class="jwt-claim-row">
+              <span class="jwt-claim-key">name</span>
+              <input type="text" id="jwt-name" class="inp jwt-claim-inp" placeholder="John Doe" spellcheck="false" />
+            </div>
+            <div class="jwt-claim-row">
+              <span class="jwt-claim-key">iss</span>
+              <input type="text" id="jwt-iss" class="inp jwt-claim-inp" placeholder="devrimsoft.com" spellcheck="false" />
+            </div>
+            <div class="jwt-claim-row">
+              <span class="jwt-claim-key">aud</span>
+              <input type="text" id="jwt-aud" class="inp jwt-claim-inp" placeholder="api.example.com" spellcheck="false" />
+            </div>
+            <div class="jwt-claim-row">
+              <span class="jwt-claim-key">exp</span>
+              <div class="jwt-exp-wrap">
+                <select id="jwt-exp" class="sel sel-sm">
+                  <option value="0" data-i18n="jwt.noExp">No expiry</option>
+                  <option value="3600">1h</option>
+                  <option value="86400" selected>24h</option>
+                  <option value="604800">7d</option>
+                  <option value="2592000">30d</option>
+                  <option value="31536000">1y</option>
+                </select>
+              </div>
+            </div>
+            <div class="jwt-claim-row">
+              <span class="jwt-claim-key">iat</span>
+              <span class="jwt-claim-auto" data-i18n="jwt.auto">auto (now)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extra JSON -->
+        <div class="fld">
+          <label data-i18n="jwt.extraClaims">Extra Claims (JSON)</label>
+          <textarea id="jwt-extra" class="inp mono" rows="2" spellcheck="false" data-i18n-placeholder="jwt.extraPlaceholder" placeholder='e.g. "role": "admin", "scope": "read"'></textarea>
+        </div>
+
+        <!-- Secret -->
+        <div class="fld">
+          <label data-i18n="jwt.secret">Secret Key</label>
+          <div class="jwt-secret-row">
+            <input type="text" id="jwt-s" class="inp mono flex1" value="" spellcheck="false" data-i18n-placeholder="jwt.secretPlaceholder" placeholder="Enter or generate a secret key" />
+            <button class="btn-sm" id="jwt-rand-sec" title="Random">
+              <svg viewBox="0 0 18 18" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 3.5A7 7 0 1016 9"/><polyline points="16 2 16 5 13 5"/></svg>
+              <span data-i18n="jwt.randomSecret">Random</span>
+            </button>
+          </div>
+        </div>
+
+        <button id="btn-jwt" class="btn"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 3.5A7 7 0 1016 9"/><polyline points="16 2 16 5 13 5"/></svg><span data-i18n="jwt.generate">Generate JWT</span></button>
+      </div>
+
+      <div id="jwt-out" class="jwt-out" style="display:none">
+        <div class="jwt-hd"><span data-i18n="jwt.result">Generated Token</span><button class="cpbtn" id="cp-jwt"><svg viewBox="0 0 18 18" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div>
+        <code class="jwt-tok mono" id="jwt-disp"></code>
+        <!-- Decoded preview -->
+        <div class="jwt-decoded" id="jwt-decoded"></div>
+      </div>
+    </section>
+
+    <!-- HASH -->
+    <section id="p-hash" class="pnl">
+      <h2 class="sec-title" data-i18n="hash.title">Hash Generator</h2>
+      <div class="card vstack">
+        <textarea id="hash-inp" class="inp mono" rows="3" data-i18n-placeholder="hash.placeholder" placeholder="Enter text to generate hashes..." spellcheck="false"></textarea>
+        <button id="btn-hash" class="btn"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 3.5A7 7 0 1016 9"/><polyline points="16 2 16 5 13 5"/></svg><span data-i18n="hash.generate">Generate Hashes</span></button>
+      </div>
+      <div id="hash-out" style="display:none" class="hash-list">
+        <div class="hrow"><div class="hrow-top"><span class="hbadge">MD5</span><button class="cpbtn ch" data-t="h-md5"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="hval mono" id="h-md5"></code></div>
+        <div class="hrow"><div class="hrow-top"><span class="hbadge b">SHA-1</span><button class="cpbtn ch" data-t="h-sha1"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="hval mono" id="h-sha1"></code></div>
+        <div class="hrow"><div class="hrow-top"><span class="hbadge g">SHA-256</span><button class="cpbtn ch" data-t="h-sha256"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="hval mono" id="h-sha256"></code></div>
+        <div class="hrow"><div class="hrow-top"><span class="hbadge p">SHA-512</span><button class="cpbtn ch" data-t="h-sha512"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="hval mono" id="h-sha512"></code></div>
+      </div>
+    </section>
+
+    <!-- TOKENS -->
+    <section id="p-token" class="pnl">
+      <h2 class="sec-title" data-i18n="token.title">Token Generator</h2>
+      <div class="card">
+        <div class="rng-group">
+          <div class="rng-top"><label data-i18n="token.length">Token Length</label><input type="number" id="tk-num" class="rng-num" min="8" max="128" value="32" /></div>
+          <input type="range" id="tk-rng" class="rng" min="8" max="128" value="32" />
+          <div class="rng-marks"><span>8</span><span>32</span><span>64</span><span>96</span><span>128</span></div>
+        </div>
+        <button id="btn-tok" class="btn"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 3.5A7 7 0 1016 9"/><polyline points="16 2 16 5 13 5"/></svg><span data-i18n="token.generateAll">Generate All Tokens</span></button>
+      </div>
+      <div class="tok-list" id="tok-list">
+        <div class="trow"><div class="trow-top"><span class="tbadge" data-i18n="token.uuid">UUID v4</span><button class="cpbtn ct" data-t="t-uuid"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="tval mono" id="t-uuid">&mdash;</code></div>
+        <div class="trow"><div class="trow-top"><span class="tbadge" data-i18n="token.csrf">CSRF Token</span><button class="cpbtn ct" data-t="t-csrf"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="tval mono" id="t-csrf">&mdash;</code></div>
+        <div class="trow"><div class="trow-top"><span class="tbadge" data-i18n="token.apiKey">API Key</span><button class="cpbtn ct" data-t="t-api"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="tval mono" id="t-api">&mdash;</code></div>
+        <div class="trow"><div class="trow-top"><span class="tbadge" data-i18n="token.hex">Hex Token</span><button class="cpbtn ct" data-t="t-hex"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="tval mono" id="t-hex">&mdash;</code></div>
+        <div class="trow"><div class="trow-top"><span class="tbadge" data-i18n="token.base64">Base64 Token</span><button class="cpbtn ct" data-t="t-b64"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="tval mono" id="t-b64">&mdash;</code></div>
+        <div class="trow"><div class="trow-top"><span class="tbadge" data-i18n="token.secret">Secret Key (256-bit)</span><button class="cpbtn ct" data-t="t-sec"><svg viewBox="0 0 18 18" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="9" height="9" rx="1.5"/><path d="M12 6V4a2 2 0 00-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/></svg></button></div><code class="tval mono" id="t-sec">&mdash;</code></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ft">&copy; 2026 <a href="https://devrimsoft.com" target="_blank" rel="noopener">DevrimSoft</a> &middot; <span data-i18n="footer.clientSide">100% client-side</span> &middot; <a href="mailto:info@devrimsoft.com" class="ft-mail">info@devrimsoft.com</a></footer>
+</Layout>
+
+<!-- SCRIPT -->
+<script>
+  import { translations, type Locale } from '../i18n/translations';
+  import {
+    generatePassword, analyzeStrength, generateHash, generateJWT,
+    generateUUID, generateHexToken, generateBase64Token,
+    generateApiKey, generateCSRFToken, generateSecretKey, DEFAULT_SYMBOLS,
+    generateRandomSecret, type JWTAlgorithm,
+  } from '../utils/crypto';
+
+  const $ = (id: string) => document.getElementById(id)!;
+  const $$ = (sel: string) => document.querySelectorAll(sel);
+
+  let locale: Locale = (localStorage.getItem('ds-lang') as Locale) || 'en';
+  let theme = localStorage.getItem('ds-theme') || (matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
+
+  function t(k: string) { return translations[locale]?.[k] || k; }
+
+  // Theme
+  function setTheme(v: string) { theme = v; document.documentElement.dataset.theme = v; localStorage.setItem('ds-theme', v); }
+  setTheme(theme);
+  $('theme-btn').onclick = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+
+  // i18n
+  function applyI18n() {
+    $$('[data-i18n]').forEach(el => { const v = translations[locale]?.[el.getAttribute('data-i18n')!]; if (v) el.textContent = v; });
+    $$('[data-i18n-placeholder]').forEach(el => { const v = translations[locale]?.[el.getAttribute('data-i18n-placeholder')!]; if (v) (el as HTMLInputElement).placeholder = v; });
+  }
+  const langSel = $('lang-sel') as HTMLSelectElement;
+  langSel.value = locale;
+  langSel.onchange = () => { locale = langSel.value as Locale; localStorage.setItem('ds-lang', locale); applyI18n(); };
+  applyI18n();
+
+  // Tabs
+  $$('.tab').forEach(tab => tab.addEventListener('click', () => {
+    $$('.tab').forEach(t => t.classList.remove('on'));
+    $$('.pnl').forEach(p => p.classList.remove('on'));
+    tab.classList.add('on');
+    $(`p-${tab.getAttribute('data-tab')}`).classList.add('on');
+  }));
+
+  // Toast
+  let toastT: ReturnType<typeof setTimeout>;
+  function showToast() { const el = $('toast'); el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 1600); }
+
+  // Copy
+  async function cp(text: string, btn?: HTMLElement) {
+    await navigator.clipboard.writeText(text);
+    if (btn) { btn.classList.add('ok'); setTimeout(() => btn.classList.remove('ok'), 1000); }
+    showToast();
+  }
+
+  // Range sync
+  function syncRng(rng: HTMLInputElement, num: HTMLInputElement) {
+    const upd = () => { const p = ((+rng.value - +rng.min) / (+rng.max - +rng.min)) * 100; rng.style.setProperty('--p', `${p}%`); num.value = rng.value; };
+    rng.oninput = () => { num.value = rng.value; upd(); };
+    num.onchange = () => { const v = Math.max(+num.min, Math.min(+num.max, +num.value || +num.min)); num.value = String(v); rng.value = String(v); upd(); };
+    upd();
+  }
+
+  // ═══ PASSWORD ═══
+  const pwOut = $('pw-out');
+  const pwRng = $('pw-rng') as HTMLInputElement;
+  const pwNum = $('pw-num') as HTMLInputElement;
+  const cpPwBtn = $('cp-pw');
+  syncRng(pwRng, pwNum);
+
+  const SCOL = ['var(--str0)','var(--str1)','var(--str2)','var(--str3)','var(--str4)'];
+
+  function colorize(pw: string) {
+    return pw.split('').map(c => {
+      if (/[A-Z]/.test(c)) return `<span class="cu">${c}</span>`;
+      if (/[a-z]/.test(c)) return `<span class="cl">${c}</span>`;
+      if (/[0-9]/.test(c)) return `<span class="cn">${c}</span>`;
+      return `<span class="cs">${c}</span>`;
+    }).join('');
+  }
+
+  // Custom symbols
+  const symInp = $('sym-inp') as HTMLInputElement;
+  const symWrap = $('sym-wrap');
+  const symToggle = $('sym-toggle');
+  const oSy = $('o-sy') as HTMLInputElement;
+
+  let symOpen = false;
+  function updateSymVisibility() {
+    const show = oSy.checked;
+    symToggle.style.display = show ? 'flex' : 'none';
+    if (!show) { symOpen = false; symWrap.style.display = 'none'; symToggle.classList.remove('open'); }
+  }
+  updateSymVisibility();
+  oSy.addEventListener('change', updateSymVisibility);
+  symToggle.addEventListener('click', () => {
+    symOpen = !symOpen;
+    symWrap.style.display = symOpen ? 'block' : 'none';
+    symToggle.classList.toggle('open', symOpen);
+  });
+
+  $('sym-reset').onclick = () => { symInp.value = DEFAULT_SYMBOLS; genPw(); };
+  symInp.addEventListener('input', genPw);
+
+  $$('.sym-pre').forEach(btn => {
+    btn.addEventListener('click', () => {
+      symInp.value = (btn as HTMLElement).dataset.syms!;
+      genPw();
+    });
+  });
+
+  function genPw() {
+    const opts = {
+      length: +pwRng.value,
+      uppercase: ($('o-up') as HTMLInputElement).checked,
+      lowercase: ($('o-lo') as HTMLInputElement).checked,
+      numbers: ($('o-nu') as HTMLInputElement).checked,
+      symbols: oSy.checked,
+      customSymbols: symInp.value,
+      excludeAmbiguous: ($('o-ex') as HTMLInputElement).checked,
+    };
+    if (!opts.uppercase && !opts.lowercase && !opts.numbers && !opts.symbols) { opts.lowercase = true; ($('o-lo') as HTMLInputElement).checked = true; }
+    const pw = generatePassword(opts);
+    pwOut.innerHTML = colorize(pw);
+    pwOut.dataset.pw = pw;
+    $('pw-len').textContent = String(pw.length);
+    const s = analyzeStrength(pw);
+    const pct = ((s.score + 1) / 5) * 100;
+    const fill = $('pw-str-fill');
+    fill.style.width = `${pct}%`; fill.style.background = SCOL[s.score];
+    const lbl = $('pw-str-lbl');
+    lbl.textContent = t(`strength.${s.score}`); lbl.style.color = SCOL[s.score];
+    $('pw-str').style.display = 'flex';
+    cp(pw, cpPwBtn);
+  }
+
+  $('btn-gen').onclick = genPw;
+  $('btn-jwt-secret').onclick = () => {
+    const secret = generateRandomSecret();
+    pwOut.textContent = secret;
+    pwOut.dataset.pw = secret;
+    $('pw-str').style.display = 'none';
+    const len = secret.length;
+    $('pw-len').textContent = String(len);
+    pwRng.value = String(len);
+    pwNum.value = String(len);
+    const p = ((len - +pwRng.min) / (+pwRng.max - +pwRng.min)) * 100;
+    pwRng.style.setProperty('--p', `${p}%`);
+    cp(secret, cpPwBtn);
+  };
+  cpPwBtn.onclick = () => { const pw = pwOut.dataset.pw; if (pw) cp(pw, cpPwBtn); };
+  pwRng.addEventListener('input', genPw);
+  pwNum.addEventListener('change', () => { syncRng(pwRng, pwNum); genPw(); });
+  ['o-up','o-lo','o-nu','o-sy','o-ex'].forEach(id => $(id).addEventListener('change', genPw));
+
+  // ═══ STRENGTH ═══
+  const sInp = $('s-inp') as HTMLInputElement;
+  sInp.oninput = () => {
+    const pw = sInp.value;
+    if (!pw) { $('s-res').style.display = 'none'; return; }
+    $('s-res').style.display = 'block';
+    const r = analyzeStrength(pw);
+    const pct = ((r.score+1)/5)*100;
+    const fill = $('s-fill'); fill.style.width = `${pct}%`; fill.style.background = SCOL[r.score];
+    const lbl = $('s-lbl'); lbl.textContent = t(`strength.${r.score}`); lbl.style.color = SCOL[r.score];
+    $('st-ent').textContent = String(r.entropy);
+    $('st-cs').textContent = String(r.charsetSize);
+    $('st-ct').textContent = r.crackTime || '—';
+  };
+  $('s-clr').onclick = () => { sInp.value = ''; $('s-res').style.display = 'none'; sInp.focus(); };
+
+  // ═══ JWT ═══
+  function buildJwtPayload(): Record<string, unknown> {
+    const payload: Record<string, unknown> = {};
+    const now = Math.floor(Date.now() / 1000);
+    payload.iat = now;
+
+    const sub = ($('jwt-sub') as HTMLInputElement).value.trim();
+    const name = ($('jwt-name') as HTMLInputElement).value.trim();
+    const iss = ($('jwt-iss') as HTMLInputElement).value.trim();
+    const aud = ($('jwt-aud') as HTMLInputElement).value.trim();
+    const expVal = +($('jwt-exp') as HTMLSelectElement).value;
+
+    if (sub) payload.sub = sub;
+    if (name) payload.name = name;
+    if (iss) payload.iss = iss;
+    if (aud) payload.aud = aud;
+    if (expVal > 0) payload.exp = now + expVal;
+
+    const extra = ($('jwt-extra') as HTMLTextAreaElement).value.trim();
+    if (extra) {
+      try {
+        const parsed = JSON.parse(`{${extra}}`);
+        Object.assign(payload, parsed);
+      } catch (_e) { /* skip invalid extra */ }
+    }
+
+    return payload;
+  }
+
+  async function doGenerateJwt(isQuick: boolean = false) {
+    const alg = isQuick ? 'HS256' : ($('jwt-alg') as HTMLSelectElement).value as JWTAlgorithm;
+    const typ = isQuick ? 'JWT' : ($('jwt-typ') as HTMLSelectElement).value;
+    let secret = ($('jwt-s') as HTMLInputElement).value.trim();
+    if (!secret || isQuick) {
+      secret = generateRandomSecret();
+      ($('jwt-s') as HTMLInputElement).value = secret;
+    }
+
+    const headerJson = JSON.stringify({ alg, typ });
+    let payloadObj: Record<string, unknown>;
+    if (isQuick) {
+      const now = Math.floor(Date.now() / 1000);
+      payloadObj = { sub: crypto.randomUUID().split('-')[0], iat: now, exp: now + 86400 };
+    } else {
+      payloadObj = buildJwtPayload();
+    }
+    const payloadJson = JSON.stringify(payloadObj);
+
+    const tok = await generateJWT(headerJson, payloadJson, secret, alg);
+    const disp = $('jwt-disp');
+    const parts = tok.split('.');
+    disp.innerHTML = `<span class="jh">${parts[0]}</span>.<span class="jp">${parts[1]}</span>.<span class="js">${parts[2]}</span>`;
+    disp.dataset.token = tok;
+    disp.className = 'jwt-tok mono';
+    $('jwt-out').style.display = 'block';
+
+    // Decoded preview
+    const decoded = $('jwt-decoded');
+    decoded.innerHTML = `<div class="jwt-dec-section"><span class="jwt-dec-label">HEADER</span><pre class="jwt-dec-json jh-bg">${JSON.stringify(JSON.parse(headerJson), null, 2)}</pre></div><div class="jwt-dec-section"><span class="jwt-dec-label">PAYLOAD</span><pre class="jwt-dec-json jp-bg">${JSON.stringify(payloadObj, null, 2)}</pre></div>`;
+
+    cp(tok, $('cp-jwt'));
+  }
+
+  $('btn-jwt-quick').onclick = () => doGenerateJwt(true);
+  $('btn-jwt').onclick = () => doGenerateJwt(false);
+
+  $('jwt-rand-sec').onclick = () => {
+    ($('jwt-s') as HTMLInputElement).value = generateRandomSecret();
+  };
+
+  const cpJwtBtn = $('cp-jwt');
+  cpJwtBtn.onclick = () => { const t = $('jwt-disp').dataset.token; if (t) cp(t, cpJwtBtn); };
+
+  // ═══ HASH ═══
+  $('btn-hash').onclick = async () => {
+    const txt = ($('hash-inp') as HTMLTextAreaElement).value; if (!txt) return;
+    $('hash-out').style.display = 'block';
+    const algos = ['MD5','SHA-1','SHA-256','SHA-512'], ids = ['h-md5','h-sha1','h-sha256','h-sha512'];
+    for (let i=0; i<algos.length; i++) $(ids[i]).textContent = await generateHash(txt, algos[i]);
+  };
+  $$('.ch').forEach(b => b.addEventListener('click', () => { const el=b as HTMLElement; const v=$(el.dataset.t!).textContent; if(v)cp(v,el); }));
+
+  // ═══ TOKENS ═══
+  const tkRng = $('tk-rng') as HTMLInputElement;
+  const tkNum = $('tk-num') as HTMLInputElement;
+  syncRng(tkRng, tkNum);
+
+  function genTok() {
+    const bytes = +tkRng.value || 32;
+    $('t-uuid').textContent = generateUUID();
+    $('t-csrf').textContent = generateCSRFToken();
+    $('t-api').textContent = generateApiKey();
+    $('t-hex').textContent = generateHexToken(bytes);
+    $('t-b64').textContent = generateBase64Token(bytes);
+    $('t-sec').textContent = generateSecretKey();
+  }
+
+  $('btn-tok').onclick = genTok;
+  tkRng.addEventListener('input', genTok);
+  tkNum.addEventListener('change', () => { syncRng(tkRng, tkNum); genTok(); });
+  $$('.ct').forEach(b => b.addEventListener('click', () => { const el=b as HTMLElement; const v=$(el.dataset.t!).textContent; if(v&&v!=='—')cp(v,el); }));
+
+  genPw();
+  genTok();
+</script>
+
+<!-- STYLES -->
+<style is:global>
+  .mono { font-family: var(--mono) !important; }
+
+  /* HEADER */
+  .hdr {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+  }
+  .hdr-in {
+    max-width: 900px; margin: 0 auto; padding: 0 20px;
+    height: 54px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 2px;
+    text-decoration: none; color: inherit; font-size: 0.88rem;
+  }
+  .logo-img { width: 95px; height: 95px; object-fit: contain; }
+  .logo-t { font-weight: 800; color: var(--text); }
+  .logo-sep { color: var(--text-muted); margin: 0 2px; }
+  .logo-sub { color: var(--text-3); font-weight: 500; }
+  .hdr-r { display: flex; align-items: center; gap: 6px; }
+
+  .lang-sel {
+    appearance: none; background: var(--bg-input); border: 1px solid var(--border);
+    border-radius: 6px; padding: 5px 10px; font-size: 0.72rem; font-weight: 700;
+    font-family: var(--mono); color: var(--text-3); cursor: pointer;
+  }
+  .lang-sel:hover { border-color: var(--blue); color: var(--text); }
+
+  .th-btn {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-3); transition: all 0.15s;
+  }
+  .th-btn:hover { color: var(--text); background: var(--bg-hover); }
+  [data-theme='dark'] .ic-moon { display: none; }
+  [data-theme='light'] .ic-sun { display: none; }
+
+  /* TABS */
+  .tabs {
+    position: sticky; top: 54px; z-index: 90;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+  }
+  .tabs-in {
+    max-width: 900px; margin: 0 auto; padding: 0 16px;
+    display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+  }
+  .tabs-in::-webkit-scrollbar { display: none; }
+  .tab {
+    display: flex; align-items: center; gap: 7px;
+    padding: 11px 16px; font-size: 0.82rem; font-weight: 600;
+    color: var(--text-muted); white-space: nowrap;
+    border-bottom: 2px solid transparent; transition: all 0.15s;
+  }
+  .tab:hover { color: var(--text-3); }
+  .tab.on { color: var(--blue); border-bottom-color: var(--blue); }
+  .tab svg { flex-shrink: 0; }
+  .tab.on svg { stroke: var(--blue); }
+
+  /* MAIN */
+  .wrap {
+    max-width: 900px; margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  .pnl { display: none; animation: fadeUp 0.3s ease; }
+  .pnl.on { display: block; }
+  .sec-title {
+    font-size: 1.4rem; font-weight: 800; margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .card.vstack { display: flex; flex-direction: column; gap: 16px; }
+
+  /* PW OUTPUT */
+  .pw-box {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 20px 20px 24px;
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 8px; min-height: 80px;
+    position: relative; overflow: hidden;
+  }
+  .pw-box::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--blue);
+  }
+  .pw-out {
+    flex: 1; font-family: var(--mono);
+    font-size: 1.05rem; line-height: 1.8;
+    word-break: break-all; letter-spacing: 0.05em; font-weight: 500;
+  }
+  .pw-ph { color: var(--text-muted); font-family: var(--font); font-style: italic; font-size: 0.9rem; font-weight: 400; }
+  .pw-side { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-top: 2px; }
+  .pw-len {
+    font-family: var(--mono); font-size: 0.7rem; font-weight: 700;
+    color: var(--blue); background: var(--blue-bg);
+    padding: 3px 10px; border-radius: 20px;
+  }
+  .pw-len:empty { display: none; }
+
+  /* char colors */
+  .cu { color: var(--blue); }
+  .cl { color: var(--text-2); }
+  .cn { color: var(--orange); }
+  .cs { color: var(--green); font-weight: 700; }
+
+  /* pw strength */
+  .pw-str {
+    display: none; align-items: center; gap: 12px;
+    padding: 0 4px; margin-bottom: 20px;
+  }
+  .pw-str-track { flex: 1; height: 4px; background: var(--bg-hover); border-radius: 2px; overflow: hidden; }
+  .pw-str-fill { height: 100%; border-radius: 2px; transition: width 0.3s, background 0.3s; }
+  .pw-str-lbl { font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+
+  /* RANGE */
+  .rng-group { margin-bottom: 22px; }
+  .rng-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .rng-top label { font-size: 0.85rem; font-weight: 600; color: var(--text-2); }
+  .rng-num {
+    width: 58px; background: var(--bg-input); border: 1px solid var(--border);
+    border-radius: 6px; padding: 5px; font-family: var(--mono);
+    font-size: 0.85rem; font-weight: 700; text-align: center; color: var(--blue);
+  }
+  .rng-num:focus { border-color: var(--blue); }
+
+  .rng {
+    width: 100%; height: 6px;
+    -webkit-appearance: none; appearance: none;
+    background: linear-gradient(to right, var(--blue) var(--p, 50%), var(--bg-hover) var(--p, 50%));
+    border-radius: 3px; cursor: pointer;
+  }
+  .rng::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--blue); border: 3px solid var(--bg-card);
+    box-shadow: 0 0 0 2px var(--blue);
+    cursor: grab; transition: transform 0.15s;
+  }
+  .rng::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .rng::-webkit-slider-thumb:active { cursor: grabbing; }
+  .rng::-moz-range-thumb {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--blue); border: 3px solid var(--bg-card);
+    box-shadow: 0 0 0 2px var(--blue); cursor: grab;
+  }
+
+  .rng-marks {
+    display: flex; justify-content: space-between;
+    margin-top: 6px; font-size: 0.62rem; color: var(--text-muted);
+    font-family: var(--mono);
+  }
+
+  /* CHECKBOXES */
+  .chk-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4px; margin-bottom: 22px;
+  }
+  .chk {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.84rem; color: var(--text-2);
+    cursor: pointer; padding: 9px 10px; border-radius: 8px;
+    transition: all 0.15s; user-select: none;
+  }
+  .chk:hover { background: var(--bg-hover); color: var(--text); }
+  .chk input { display: none; }
+  .chk-box {
+    width: 18px; height: 18px; border-radius: 5px;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all 0.15s;
+    position: relative;
+  }
+  .chk-box::after {
+    content: ''; width: 10px; height: 10px; border-radius: 2px;
+    background: var(--blue); transform: scale(0);
+    transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .chk input:checked ~ .chk-box {
+    border-color: var(--blue); background: var(--blue-bg);
+  }
+  .chk input:checked ~ .chk-box::after { transform: scale(1); }
+
+  /* CUSTOM SYMBOLS */
+  .sym-toggle {
+    display: flex; align-items: center; gap: 8px;
+    width: 100%; padding: 10px 14px; margin-bottom: 8px;
+    background: var(--bg-body); border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem; font-weight: 700; color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .sym-toggle:hover { border-color: var(--blue); color: var(--text-2); }
+  .sym-toggle.open { border-color: var(--blue); color: var(--blue); border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0; }
+  .sym-toggle-ico { flex-shrink: 0; }
+  .sym-toggle.open .sym-toggle-ico { display: none; }
+  .sym-chevron { margin-left: auto; transition: transform 0.2s; flex-shrink: 0; }
+  .sym-toggle.open .sym-chevron { transform: rotate(180deg); }
+  .sym-custom {
+    margin-bottom: 8px; padding: 14px 16px;
+    background: var(--bg-body);
+    border: 1px solid var(--blue); border-top: none;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  }
+  .sym-row {
+    display: flex; gap: 8px; margin-bottom: 10px;
+  }
+  .sym-inp {
+    flex: 1; padding: 8px 12px !important;
+    font-size: 0.9rem !important; letter-spacing: 0.1em;
+  }
+  .sym-reset {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); background: var(--bg-card);
+    border: 1px solid var(--border); flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .sym-reset:hover { color: var(--blue); border-color: var(--blue); }
+  .sym-presets {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .sym-pre {
+    padding: 4px 10px; border-radius: 6px;
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 600;
+    color: var(--text-3); background: var(--bg-card);
+    border: 1px solid var(--border); transition: all 0.15s;
+    letter-spacing: 0.04em;
+  }
+  .sym-pre:hover { color: var(--green); border-color: var(--green); background: var(--green-bg); }
+
+  /* BUTTON */
+  .btn {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; width: 100%; padding: 12px 16px;
+    background: var(--blue); color: #fff;
+    font-weight: 700; font-size: 0.88rem;
+    border-radius: var(--radius); transition: all 0.15s;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.3);
+  }
+  .btn:hover { background: var(--blue-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(59,130,246,0.4); }
+  .btn:active { transform: translateY(0); }
+  .btn-row { display: flex; gap: 10px; }
+  .btn-row .btn { flex: 1; }
+  .btn-secondary {
+    background: var(--bg-input); color: var(--text-2);
+    border: 1px solid var(--border);
+    box-shadow: none;
+  }
+  .btn-secondary:hover { background: var(--bg-hover); color: var(--text); border-color: var(--blue); box-shadow: none; transform: translateY(-1px); }
+
+  /* COPY BTN */
+  .cpbtn {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); transition: all 0.15s; flex-shrink: 0;
+  }
+  .cpbtn:hover { background: var(--blue-bg); color: var(--blue); }
+  .cpbtn.ok { color: var(--green); background: var(--green-bg); }
+
+  /* TOAST */
+  .toast {
+    position: fixed; top: 20px; right: 20px;
+    transform: translateY(-16px);
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 20px;
+    background: var(--bg-card); border: 1px solid var(--green);
+    border-radius: var(--radius); font-size: 0.84rem; font-weight: 700;
+    color: var(--green); opacity: 0; pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1); z-index: 200;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* INPUT */
+  .inp {
+    width: 100%; padding: 12px 14px;
+    background: var(--bg-input); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); font-size: 0.88rem;
+    line-height: 1.6; resize: vertical; transition: all 0.15s;
+    color: var(--text);
+  }
+  .inp:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-bg); }
+  .inp::placeholder { color: var(--text-muted); }
+
+  .inp-wrap { position: relative; }
+  .inp-clr { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+  .inp-clr:hover { color: var(--text); background: var(--bg-hover); }
+
+  .fld label {
+    display: block; font-size: 0.75rem; font-weight: 700;
+    color: var(--text-3); margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* STRENGTH */
+  .s-res { animation: fadeUp 0.3s ease; margin-top: 16px; }
+  .s-meter { margin-bottom: 16px; }
+  .s-meter-track { height: 6px; background: var(--bg-hover); border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+  .s-meter-fill { height: 100%; border-radius: 3px; transition: width 0.3s, background 0.3s; width: 0%; }
+  .s-meter-lbl { font-size: 1rem; font-weight: 800; }
+
+  .stat-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 10px; margin-bottom: 16px;
+  }
+  .stat {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px;
+  }
+  .stat-k { font-size: 0.68rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .stat-v { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-top: 4px; }
+  .stat-v.small { font-size: 0.85rem; }
+  .stat-u { font-size: 0.65rem; color: var(--text-muted); }
+
+  .tips {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px;
+  }
+  .tips h4 { font-size: 0.72rem; font-weight: 700; color: var(--text-3); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .tips ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .tips li { font-size: 0.84rem; color: var(--text-2); padding-left: 18px; position: relative; }
+  .tips li::before { content: ''; position: absolute; left: 2px; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+
+  /* JWT */
+  .btn-quick {
+    background: var(--green); margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(34,197,94,0.25);
+    position: relative;
+  }
+  .btn-quick:hover { background: #16a34a; box-shadow: 0 4px 16px rgba(34,197,94,0.35); }
+  .btn-hint {
+    font-weight: 400; font-size: 0.72rem; opacity: 0.7;
+    margin-left: 4px;
+  }
+
+  .jwt-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 8px 0 16px; font-size: 0.72rem; color: var(--text-muted);
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .jwt-divider::before, .jwt-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .jwt-header-row {
+    display: flex; gap: 12px;
+  }
+  .flex1 { flex: 1; }
+
+  .sel {
+    width: 100%; appearance: none;
+    background: var(--bg-input); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 14px;
+    font-size: 0.88rem; font-weight: 600; font-family: var(--mono);
+    cursor: pointer; transition: all 0.15s; color: var(--text);
+  }
+  .sel:hover { border-color: var(--blue); }
+  .sel:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-bg); }
+  .sel-sm { padding: 6px 10px; font-size: 0.82rem; }
+
+  .jwt-claims {
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .jwt-claim-row {
+    display: flex; align-items: center;
+    border-bottom: 1px solid var(--border);
+    min-height: 42px;
+  }
+  .jwt-claim-row:last-child { border-bottom: none; }
+  .jwt-claim-key {
+    width: 60px; padding: 0 12px;
+    font-family: var(--mono); font-size: 0.76rem; font-weight: 700;
+    color: var(--blue); flex-shrink: 0;
+  }
+  .jwt-claim-inp {
+    border: none !important; border-radius: 0 !important;
+    background: var(--bg-input) !important; padding: 10px 12px !important;
+    font-size: 0.84rem !important; box-shadow: none !important;
+  }
+  .jwt-claim-inp:focus { background: var(--blue-bg) !important; }
+  .jwt-claim-auto {
+    font-size: 0.78rem; color: var(--text-muted); font-style: italic;
+    padding: 0 12px;
+  }
+  .jwt-exp-wrap { flex: 1; padding: 4px 4px 4px 0; }
+  .jwt-exp-wrap .sel { border: 1px solid var(--border); background: var(--bg-input); padding: 6px 10px; font-size: 0.82rem; border-radius: 6px; }
+
+  .jwt-secret-row {
+    display: flex; gap: 8px;
+  }
+  .btn-sm {
+    display: flex; align-items: center; gap: 5px;
+    padding: 8px 14px; border-radius: var(--radius-sm);
+    background: var(--bg-input); border: 1px solid var(--border);
+    font-size: 0.76rem; font-weight: 600; color: var(--text-3);
+    white-space: nowrap; transition: all 0.15s;
+  }
+  .btn-sm:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-bg); }
+
+  .jwt-out {
+    margin-top: 16px; background: var(--bg-body);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; animation: fadeUp 0.3s ease;
+  }
+  .jwt-hd {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 16px; background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.7rem; font-weight: 700; color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .jwt-tok {
+    padding: 14px 16px; font-size: 0.76rem; word-break: break-all;
+    line-height: 1.7; color: var(--text-2); background: var(--bg-body);
+    border-bottom: 1px solid var(--border);
+  }
+  .jwt-err { color: var(--red) !important; }
+  .jh { color: var(--red); }
+  .jp { color: var(--blue); }
+  .js { color: var(--green); }
+
+  .jwt-decoded {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  }
+  .jwt-dec-section {
+    padding: 14px 16px;
+  }
+  .jwt-dec-section:first-child {
+    border-right: 1px solid var(--border);
+  }
+  .jwt-dec-label {
+    display: inline-block; font-size: 0.6rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 8px; padding: 2px 8px; border-radius: 4px;
+  }
+  .jwt-dec-section:first-child .jwt-dec-label {
+    color: var(--red); background: var(--red-bg);
+  }
+  .jwt-dec-section:last-child .jwt-dec-label {
+    color: var(--blue); background: var(--blue-bg);
+  }
+  .jwt-dec-json {
+    font-family: var(--mono); font-size: 0.72rem;
+    line-height: 1.7; color: var(--text-2);
+    background: var(--bg-card); border-radius: var(--radius-sm);
+    padding: 12px 14px; margin: 0; white-space: pre-wrap;
+    word-break: break-all; border: 1px solid var(--border);
+  }
+  .jh-bg { border-left: 3px solid var(--red); }
+  .jp-bg { border-left: 3px solid var(--blue); }
+  @media (max-width: 600px) {
+    .jwt-decoded { grid-template-columns: 1fr; }
+    .jwt-dec-section:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+
+  /* HASH */
+  .hash-list { display: grid; gap: 8px; margin-top: 16px; animation: fadeUp 0.3s ease; }
+  .hrow { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+  .hrow:hover { border-color: var(--blue); }
+  .hrow-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .hbadge { font-family: var(--mono); font-size: 0.68rem; font-weight: 700; color: var(--orange); background: var(--orange-bg); padding: 2px 8px; border-radius: 4px; }
+  .hbadge.b { color: var(--purple); background: var(--purple-bg); }
+  .hbadge.g { color: var(--green); background: var(--green-bg); }
+  .hbadge.p { color: var(--blue); background: var(--blue-bg); }
+  .hval { font-size: 0.78rem; color: var(--text-2); word-break: break-all; line-height: 1.6; display: block; }
+
+  /* TOKENS */
+  .tok-list { display: grid; gap: 8px; margin-top: 16px; }
+  .trow { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+  .trow:hover { border-color: var(--blue); }
+  .trow-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .tbadge { font-size: 0.7rem; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
+  .tval { font-size: 0.78rem; color: var(--text-2); word-break: break-all; line-height: 1.6; display: block; }
+  .trow-top .cpbtn, .hrow-top .cpbtn { width: 28px; height: 28px; }
+
+  /* FOOTER */
+  .ft {
+    text-align: center; padding: 24px 20px;
+    font-size: 0.72rem; color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  }
+  .ft a { color: var(--text-3); text-decoration: none; font-weight: 700; }
+  .ft a:hover { color: var(--blue); }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .hdr-in { padding: 0 14px; }
+    .logo-sub, .logo-sep { display: none; }
+    .wrap { padding: 20px 14px 60px; }
+    .pw-out { font-size: 0.9rem; }
+    .chk-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .card { padding: 18px; }
+    .sec-title { font-size: 1.2rem; }
+    .tab { padding: 10px; }
+    .tab span { display: none; }
+    .tab svg { width: 20px; height: 20px; }
+  }
+
+  /* Light theme overrides */
+  :global([data-theme='light']) .sel option,
+  :global([data-theme='light']) .lang-sel option {
+    background: var(--bg-card);
+    color: var(--text);
+  }
+  :global([data-theme='light']) .card {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  }
+  :global([data-theme='light']) .inp,
+  :global([data-theme='light']) .rng-num {
+    border-color: var(--border);
+  }
+  :global([data-theme='light']) .th-btn {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+  }
+</style>
