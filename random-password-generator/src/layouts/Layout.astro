@@ -1,0 +1,122 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = 'Random Password Generator — DevrimSoft' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Generate secure passwords, JWT tokens, hashes, and developer tokens. Free, open-source, fully client-side. By DevrimSoft." />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg-body: #0f172a;
+    --bg-card: #1e293b;
+    --bg-input: #0f172a;
+    --bg-hover: #334155;
+    --border: #334155;
+    --border-focus: #3b82f6;
+    --text: #f8fafc;
+    --text-2: #cbd5e1;
+    --text-3: #94a3b8;
+    --text-muted: #64748b;
+    --blue: #3b82f6;
+    --blue-hover: #2563eb;
+    --blue-bg: rgba(59,130,246,0.15);
+    --green: #22c55e;
+    --green-bg: rgba(34,197,94,0.15);
+    --orange: #f59e0b;
+    --orange-bg: rgba(245,158,11,0.15);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.15);
+    --purple: #a78bfa;
+    --purple-bg: rgba(167,139,250,0.15);
+    --cyan: #22d3ee;
+    --str0: #ef4444;
+    --str1: #f97316;
+    --str2: #eab308;
+    --str3: #84cc16;
+    --str4: #22c55e;
+    --font: 'Inter', -apple-system, system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  [data-theme='light'] {
+    --bg-body: #f0f2f5;
+    --bg-card: #ffffff;
+    --bg-input: #e8ebf0;
+    --bg-hover: #dde1e8;
+    --border: #cdd3dc;
+    --border-focus: #2563eb;
+    --text: #111827;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --text-muted: #9ca3af;
+    --blue: #2563eb;
+    --blue-hover: #1d4ed8;
+    --blue-bg: rgba(37,99,235,0.12);
+    --green: #16a34a;
+    --green-bg: rgba(22,163,74,0.12);
+    --orange: #d97706;
+    --orange-bg: rgba(217,119,6,0.12);
+    --red: #dc2626;
+    --red-bg: rgba(220,38,38,0.12);
+    --purple: #7c3aed;
+    --purple-bg: rgba(124,58,237,0.12);
+    --str0: #dc2626;
+    --str1: #ea580c;
+    --str2: #ca8a04;
+    --str3: #65a30d;
+    --str4: #16a34a;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg-body);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+
+  ::selection { background: rgba(59,130,246,0.3); }
+
+  button { font-family: inherit; cursor: pointer; border: none; outline: none; background: none; color: inherit; }
+  input, textarea, select { font-family: inherit; outline: none; border: none; color: inherit; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
