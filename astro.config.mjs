@@ -2,9 +2,12 @@ import { defineConfig } from 'astro/config'
 import tailwind from '@astrojs/tailwind'
 import sitemap from '@astrojs/sitemap'
 
+import cloudflare from '@astrojs/cloudflare';
+
 export default defineConfig({
   site: 'https://devrimsoft.com',
   output: 'static',
+
   integrations: [
     tailwind(),
     sitemap({
@@ -34,6 +37,7 @@ export default defineConfig({
       },
     }),
   ],
+
   i18n: {
     defaultLocale: 'tr',
     locales: ['tr', 'en', 'ru', 'uk', 'de', 'es', 'fr'],
@@ -41,4 +45,6 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+
+  adapter: cloudflare(),
 })
